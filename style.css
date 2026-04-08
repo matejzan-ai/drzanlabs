@@ -1845,17 +1845,6 @@ input:focus, select:focus, textarea:focus {
 
 .nav-links a:not(.nav-cta):hover::after { width: 100%; }
 
-/* --- Featured card gradient shift --- */
-.service-card.featured {
-    background-size: 200% 200%;
-    animation: gradientShift 8s ease infinite;
-}
-
-@keyframes gradientShift {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 100% 100%; }
-    100% { background-position: 0% 0%; }
-}
 
 /* --- Scroll indicator bounce --- */
 .scroll-indicator {
