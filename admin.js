@@ -397,7 +397,8 @@ function showAdmin() {
     buildSidebar();
     showSection(SECTIONS[0].id);
 
-    // Lang switch
+    // Lang switch — hidden, always SK
+    document.querySelector('.admin-lang-switch').style.display = 'none';
     document.querySelectorAll('.lang-tab').forEach(btn => {
         btn.addEventListener('click', () => {
             saveCurrentSection();
@@ -563,12 +564,13 @@ function saveCurrentSection() {
 
 function saveAll() {
     saveCurrentSection();
+    // Mirror all SK overrides to EN so both languages stay in sync
+    savedContent.en = Object.assign({}, savedContent.sk);
     localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
     const status = document.getElementById('save-status');
-    status.textContent = '✓ Uložené';
+    status.textContent = '✓ Uložené (SK + EN)';
     status.classList.add('visible');
     setTimeout(() => status.classList.remove('visible'), 2500);
-    // Refresh fields to update "changed" markers
     if (_currentSectionId) showSection(_currentSectionId);
 }
 
@@ -578,12 +580,13 @@ function refreshCurrentSection() {
 
 function resetSection(sec) {
     if (!confirm(`Obnoviť predvolené hodnoty pre sekciu "${sec.label}"?`)) return;
-    if (!savedContent[currentLang]) savedContent[currentLang] = {};
+    if (!savedContent.sk) savedContent.sk = {};
+    if (!savedContent.en) savedContent.en = {};
 
     function collectKeys(fields) {
         fields.forEach(f => {
-            if (f.row) f.row.forEach(rf => delete savedContent[currentLang][rf.key]);
-            else if (f.key) delete savedContent[currentLang][f.key];
+            if (f.row) f.row.forEach(rf => { delete savedContent.sk[rf.key]; delete savedContent.en[rf.key]; });
+            else if (f.key) { delete savedContent.sk[f.key]; delete savedContent.en[f.key]; }
         });
     }
     if (sec.subsections) sec.subsections.forEach(sub => collectKeys(sub.fields));
