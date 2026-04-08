@@ -1601,6 +1601,35 @@ section {
     opacity: 0.6;
 }
 
+.footer-retro-btn {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 8px;
+    background: transparent;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    color: var(--text-muted);
+    padding: 5px 10px;
+    cursor: pointer;
+    opacity: 0.45;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.footer-retro-btn:hover {
+    opacity: 0.8;
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.footer-retro-btn.active {
+    color: #39ff14;
+    border-color: #39ff14;
+    opacity: 1;
+    text-shadow: 0 0 6px #39ff14;
+    box-shadow: 0 0 8px rgba(57, 255, 20, 0.2);
+}
+
 .footer-admin-link {
     font-size: 10px;
     color: var(--text-muted);

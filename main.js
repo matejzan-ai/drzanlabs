@@ -1354,30 +1354,36 @@
 
     function initRetroMode() {
         const btn = document.getElementById('retro-toggle');
+        const footerBtn = document.getElementById('footer-retro-btn');
         const muteBtn = document.getElementById('mute-toggle');
-        if (!btn) return;
 
-        btn.addEventListener('click', () => {
+        function toggleRetro() {
             retroMode = !retroMode;
             document.body.classList.toggle('retro-mode', retroMode);
-            btn.classList.toggle('active', retroMode);
+            if (btn) btn.classList.toggle('active', retroMode);
+            if (footerBtn) footerBtn.classList.toggle('active', retroMode);
 
             retroAudio.init();
 
             if (retroMode) {
-                muteBtn.classList.add('visible');
+                if (muteBtn) muteBtn.classList.add('visible');
                 retroAudio.playStartup();
                 setTimeout(() => retroAudio.startMusic(), 600);
             } else {
                 retroAudio.stopMusic();
-                muteBtn.classList.remove('visible');
+                if (muteBtn) muteBtn.classList.remove('visible');
             }
-        });
+        }
 
-        muteBtn.addEventListener('click', () => {
-            retroAudio.toggleMute();
-            muteBtn.classList.toggle('muted', retroAudio.muted);
-        });
+        if (btn) btn.addEventListener('click', toggleRetro);
+        if (footerBtn) footerBtn.addEventListener('click', toggleRetro);
+
+        if (muteBtn) {
+            muteBtn.addEventListener('click', () => {
+                retroAudio.toggleMute();
+                muteBtn.classList.toggle('muted', retroAudio.muted);
+            });
+        }
 
         // Add retro sound triggers to interactive elements
         document.addEventListener('mouseover', (e) => {
