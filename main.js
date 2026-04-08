@@ -211,6 +211,19 @@
         }
     };
 
+    // ---- Load admin content overrides from localStorage ----
+    (function loadContentOverrides() {
+        try {
+            const saved = JSON.parse(localStorage.getItem('drzan_content') || 'null');
+            if (!saved) return;
+            ['sk', 'en'].forEach(lang => {
+                if (saved[lang] && typeof saved[lang] === 'object') {
+                    Object.assign(T[lang], saved[lang]);
+                }
+            });
+        } catch(e) {}
+    })();
+
     function applyLanguage(lang) {
         siteLang = lang;
         const t = T[lang];

@@ -1574,6 +1574,17 @@ section {
     opacity: 0.6;
 }
 
+.footer-admin-link {
+    font-size: 10px;
+    color: var(--text-muted);
+    opacity: 0.25;
+    text-decoration: none;
+    display: block;
+    margin-top: 6px;
+    transition: opacity 0.3s;
+}
+.footer-admin-link:hover { opacity: 0.7; color: var(--gold); }
+
 /* --- Hero Reveal Animation --- */
 .hero-anim {
     opacity: 0;
