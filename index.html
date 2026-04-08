@@ -547,6 +547,10 @@
                             <textarea id="message" rows="4" placeholder="Popíšte váš projekt alebo otázku..." required></textarea>
                             <label for="message">Správa</label>
                         </div>
+                        <div class="form-group form-checkbox">
+                            <input type="checkbox" id="gdpr-consent" required>
+                            <label for="gdpr-consent">Súhlasím so spracovaním osobných údajov podľa <a href="privacy.html" target="_blank">Zásad ochrany osobných údajov</a></label>
+                        </div>
                         <button type="submit" class="btn btn-primary btn-full">
                             <span>Odoslať správu</span>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -573,6 +577,9 @@
                         <a href="#services">Služby</a>
                         <a href="#about">O nás</a>
                         <a href="#contact">Kontakt</a>
+                        <a href="privacy.html">Ochrana údajov</a>
+                        <a href="privacy.html#cookies">Cookies</a>
+                        <a href="privacy.html#terms">Podmienky</a>
                     </div>
                     <div class="footer-copy">
                         <p>&copy; 2026 DrZan Labs. Všetky práva vyhradené.</p>
@@ -582,6 +589,20 @@
             </div>
         </footer>
     </main>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookie-banner" class="cookie-banner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <strong>🍪 Táto stránka používa cookies</strong>
+                <p>Používame iba nevyhnutné cookies pre základnú funkčnosť (uloženie jazykových preferencií). Žiadne sledovacie ani reklamné cookies.</p>
+            </div>
+            <div class="cookie-actions">
+                <button id="cookie-accept" class="btn btn-primary cookie-btn">Rozumiem</button>
+                <a href="privacy.html#cookies" class="cookie-link">Viac info</a>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>

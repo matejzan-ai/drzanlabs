@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ochrana údajov & Podmienky | DrZan Labs</title>
+    <meta name="description" content="Zásady ochrany osobných údajov, cookies a obchodné podmienky spoločnosti DrZan Labs.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='32' fill='%23d4af37'%3EDZ%3C/text%3E%3C/svg%3E">
+    <style>
+        /* ---- Privacy Page Specific Styles ---- */
+        .privacy-nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 16px 0;
+        }
+
+        .privacy-nav .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .privacy-nav .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 1px;
+            text-decoration: none;
+        }
+
+        .privacy-nav .nav-logo:hover { color: var(--gold); }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--gold); }
+
+        .privacy-hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .privacy-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .privacy-hero h1 span { color: var(--gold); }
+
+        .privacy-hero p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .privacy-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        /* Table of Contents Sidebar */
+        .toc-sidebar {
+            position: sticky;
+            top: 80px;
+        }
+
+        .toc-title {
+            font-family: var(--font-heading);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            border-left: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .toc-list li {
+            padding: 0;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 8px 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.2s;
+            border-left: 2px solid transparent;
+            margin-left: -1px;
+            line-height: 1.4;
+        }
+
+        .toc-list a:hover {
+            color: var(--gold);
+            border-left-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+        }
+
+        /* Content */
+        .privacy-content {
+            min-width: 0;
+        }
+
+        .legal-section {
+            margin-bottom: 60px;
+            scroll-margin-top: 100px;
+        }
+
+        .legal-section h2 {
+            font-family: var(--font-heading);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .legal-section h3 {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            letter-spacing: 0.5px;
+            margin: 28px 0 12px;
+        }
+
+        .legal-section p {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .legal-section ul, .legal-section ol {
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.8;
+            padding-left: 24px;
+            margin-bottom: 14px;
+        }
+
+        .legal-section li {
+            margin-bottom: 6px;
+        }
+
+        .legal-section a {
+            color: var(--gold);
+        }
+
+        .legal-section a:hover {
+            color: var(--gold-light);
+        }
+
+        .info-box {
+            background: var(--black-card);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-left: 3px solid var(--gold);
+            padding: 20px 24px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+        }
+
+        .info-box strong {
+            color: var(--text);
+        }
+
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .right-card {
+            background: var(--black-card);
+            border: 1px solid rgba(212, 175, 55, 0.12);
+            padding: 18px 20px;
+            border-radius: 4px;
+        }
+
+        .right-card h4 {
+            font-family: var(--font-heading);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .right-card p {
+            font-size: 12px;
+            margin-bottom: 0;
+        }
+
+        .impressum-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        .impressum-table tr {
+            border-bottom: 1px solid rgba(212, 175, 55, 0.08);
+        }
+
+        .impressum-table td {
+            padding: 12px 0;
+            vertical-align: top;
+        }
+
+        .impressum-table td:first-child {
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 180px;
+            padding-right: 20px;
+        }
+
+        .impressum-table td:last-child {
+            color: var(--text);
+        }
+
+        .section-tag {
+            font-family: var(--font-heading);
+            font-size: 11px;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+            opacity: 0.7;
+        }
+
+        .privacy-footer {
+            background: var(--black-light);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding: 32px 0;
+            text-align: center;
+        }
+
+        .privacy-footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .privacy-footer p {
+            color: var(--text-muted);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .privacy-footer .back-link {
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-layout {
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 40px 20px 60px;
+            }
+
+            .toc-sidebar {
+                position: static;
+                background: var(--black-card);
+                border: 1px solid rgba(212, 175, 55, 0.12);
+                padding: 20px;
+                border-radius: 4px;
+            }
+
+            .rights-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impressum-table td:first-child {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="privacy-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <svg viewBox="0 0 200 200" width="32" height="32">
+                    <polygon points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="#d4af37" stroke-width="4"/>
+                    <text x="100" y="112" text-anchor="middle" font-family="Rajdhani" font-weight="400" font-size="42" letter-spacing="6" fill="#d4af37">DZ</text>
+                </svg>
+                DrZan Labs
+            </a>
+            <a href="index.html" class="back-link">
+                ← Späť na hlavnú stránku
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <div class="privacy-hero">
+        <div class="container">
+            <span class="section-tag">// PRÁVNE INFORMÁCIE</span>
+            <h1>Ochrana údajov &amp; <span>Podmienky</span></h1>
+            <p>Platné od 1. januára 2025 &nbsp;|&nbsp; DrZan Labs</p>
+        </div>
+    </div>
+
+    <!-- Main Layout -->
+    <div class="privacy-layout">
+
+        <!-- Sidebar Table of Contents -->
+        <aside class="toc-sidebar">
+            <p class="toc-title">// Obsah</p>
+            <ul class="toc-list">
+                <li><a href="#privacy">Ochrana osobných údajov</a></li>
+                <li><a href="#cookies">Cookies</a></li>
+                <li><a href="#terms">Obchodné podmienky</a></li>
+                <li><a href="#impressum">Informácie o spoločnosti</a></li>
+            </ul>
+        </aside>
+
+        <!-- Content -->
+        <main class="privacy-content">
+
+            <!-- 1. Privacy Policy -->
+            <section id="privacy" class="legal-section">
+                <span class="section-tag">// SEKCIA 1</span>
+                <h2>Zásady ochrany osobných údajov</h2>
+
+                <div class="info-box">
+                    <p><strong>Prevádzkovateľ:</strong> DrZan Labs<br>
+                    <strong>Kontakt:</strong> <a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a><br>
+                    <strong>Sídlo:</strong> Slovensko</p>
+                </div>
+
+                <h3>1.1 Úvod</h3>
+                <p>DrZan Labs (ďalej len „my" alebo „prevádzkovateľ") rešpektuje vaše súkromie a zaväzuje sa chrániť vaše osobné údaje v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 (GDPR) a zákonom č. 18/2018 Z. z. o ochrane osobných údajov.</p>
+                <p>Tieto zásady popisujú, aké osobné údaje zbierame, ako ich používame, ako dlho ich uchovávame a aké máte práva v súvislosti so spracovaním vašich údajov.</p>
+
+                <h3>1.2 Aké údaje zbierame</h3>
+                <p>Zbierame osobné údaje, ktoré nám dobrovoľne poskytnete prostredníctvom kontaktného formulára na našej webovej stránke:</p>
+                <ul>
+                    <li><strong>Meno</strong> — identifikácia osoby, ktorá nás kontaktuje</li>
+                    <li><strong>E-mailová adresa</strong> — spätné kontaktovanie a komunikácia</li>
+                    <li><strong>Správa</strong> — obsah dopytu alebo otázky</li>
+                </ul>
+                <p>Nezbierame žiadne citlivé osobné údaje (zdravotné, finančné, biometrické a podobne).</p>
+
+                <h3>1.3 Právny základ spracovania</h3>
+                <p>Právnym základom pre spracovanie vašich osobných údajov je váš <strong>súhlas</strong> udelený pred odoslaním kontaktného formulára (článok 6 ods. 1 písm. a) GDPR). Súhlas môžete kedykoľvek odvolať bez toho, aby to malo vplyv na zákonnosť spracovania pred jeho odvolaním.</p>
+
+                <h3>1.4 Účel spracovania</h3>
+                <p>Vaše osobné údaje spracovávame výlučne za účelom:</p>
+                <ul>
+                    <li>Zodpovedania vašej otázky alebo dopytu</li>
+                    <li>Komunikácie v súvislosti s poskytovaním IT služieb</li>
+                    <li>Vypracovania cenovej ponuky</li>
+                </ul>
+
+                <h3>1.5 Doba uchovávania</h3>
+                <p>Vaše osobné údaje uchovávame po dobu <strong>2 rokov</strong> od posledného kontaktu, pokiaľ nevznikne zákonná povinnosť dlhšieho uchovávania. Po uplynutí tejto doby budú vaše údaje bezpečne vymazané.</p>
+
+                <h3>1.6 Príjemcovia údajov — nezdieľame s tretími stranami</h3>
+                <p>Vaše osobné údaje <strong>nepredávame, neprenajímame ani inak neposkytujeme</strong> tretím stranám na marketingové ani iné účely. Prístup k vašim údajom má len oprávnený personál DrZan Labs.</p>
+                <p>Vaše údaje nie sú prenášané mimo Európskej únie ani Európskeho hospodárskeho priestoru.</p>
+
+                <h3>1.7 Vaše práva</h3>
+                <p>Podľa GDPR máte nasledujúce práva:</p>
+                <div class="rights-grid">
+                    <div class="right-card">
+                        <h4>Právo na prístup</h4>
+                        <p>Môžete požiadať o potvrdenie, či spracovávame vaše osobné údaje, a o ich kópiu.</p>
+                    </div>
+                    <div class="right-card">
+                        <h4>Právo na opravu</h4>
+                        <p>Môžete požiadať o opravu nepresných alebo doplnenie neúplných osobných údajov.</p>
+                    </div>
+                    <div class="right-card">
+                        <h4>Právo na výmaz</h4>
+                        <p>Môžete požiadať o vymazanie vašich osobných údajov („právo byť zabudnutý").</p>
+                    </div>
+                    <div class="right-card">
+                        <h4>Právo na prenosnosť</h4>
+                        <p>Môžete požiadať o poskytnutie vašich údajov v štruktúrovanom, strojovo čitateľnom formáte.</p>
+                    </div>
+                    <div class="right-card">
+                        <h4>Právo na námietku</h4>
+                        <p>Môžete namietať proti spracovaniu vašich osobných údajov.</p>
+                    </div>
+                    <div class="right-card">
+                        <h4>Právo odvolať súhlas</h4>
+                        <p>Súhlas so spracovaním môžete kedykoľvek odvolať zaslaním e-mailu.</p>
+                    </div>
+                </div>
+                <p>Všetky žiadosti zasielajte na: <a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a>. Na vašu žiadosť odpovieme do 30 dní.</p>
+                <p>Máte tiež právo podať sťažnosť na Úrade na ochranu osobných údajov Slovenskej republiky (<a href="https://www.dataprotection.gov.sk" target="_blank" rel="noopener">dataprotection.gov.sk</a>).</p>
+
+                <h3>1.8 Bezpečnosť údajov</h3>
+                <p>Prijali sme primerané technické a organizačné opatrenia na ochranu vašich osobných údajov pred neoprávneným prístupom, stratou, zničením alebo zverejnením. Komunikácia je šifrovaná pomocou protokolu HTTPS.</p>
+            </section>
+
+            <!-- 2. Cookie Policy -->
+            <section id="cookies" class="legal-section">
+                <span class="section-tag">// SEKCIA 2</span>
+                <h2>Zásady používania cookies</h2>
+
+                <h3>2.1 Čo sú cookies</h3>
+                <p>Cookies sú malé textové súbory, ktoré sa ukladajú vo vašom prehliadači pri návšteve webovej stránky. Umožňujú stránke zapamätať si vaše preferencie a správanie počas návštevy.</p>
+
+                <h3>2.2 Aké cookies používame</h3>
+                <p>Táto webová stránka používa <strong>iba nevyhnutné funkčné cookies</strong>. Nepoužívame žiadne sledovacie, analytické ani reklamné cookies.</p>
+
+                <div class="info-box">
+                    <p><strong>localStorage — jazykové preferencie:</strong> Ukladáme váš výber jazyka (SK/EN), aby sme pri ďalšej návšteve zobrazili stránku v preferovanom jazyku. Toto je čisto funkčné nastavenie bez akéhokoľvek sledovania.</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>localStorage — súhlas s cookies:</strong> Ukladáme informáciu o tom, že ste potvrdili informáciu o cookies, aby sme vám banner nezobrazovali opakovane.</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>localStorage — admin session:</strong> Pokiaľ pristupujete k administrátorskému rozhraniu, ukladáme token relácie pre autentifikáciu. Táto informácia je dostupná výlučne pre oprávnené osoby.</p>
+                </div>
+
+                <h3>2.3 Čo nepoužívame</h3>
+                <ul>
+                    <li>Google Analytics ani iné analytické nástroje</li>
+                    <li>Reklamné siete (Google Ads, Facebook Pixel a podobne)</li>
+                    <li>Sledovacie cookies tretích strán</li>
+                    <li>Profilovacie cookies</li>
+                    <li>Sociálne pluginy (Facebook, Twitter a podobne)</li>
+                </ul>
+
+                <h3>2.4 Správa cookies</h3>
+                <p>Keďže používame iba nevyhnutné funkčné cookies, odhlásenie nie je potrebné. Ak si napriek tomu želáte vymazať uložené údaje, môžete to urobiť priamo v nastaveniach vášho prehliadača v časti „História" alebo „Súkromie".</p>
+                <p>Vypnutie localStorage môže ovplyvniť funkčnosť výberu jazyka a autentifikáciu administrátorského rozhrania.</p>
+            </section>
+
+            <!-- 3. Terms of Service -->
+            <section id="terms" class="legal-section">
+                <span class="section-tag">// SEKCIA 3</span>
+                <h2>Obchodné podmienky</h2>
+
+                <h3>3.1 Všeobecné ustanovenia</h3>
+                <p>Tieto Obchodné podmienky (ďalej len „OP") upravujú vzťahy medzi spoločnosťou DrZan Labs (ďalej len „poskytovateľ") a zákazníkmi (ďalej len „zákazník") pri poskytovaní IT služieb a súvisiacich konzultácií.</p>
+                <p>Uzatvorením zmluvy alebo objednaním služby zákazník potvrdzuje, že sa s týmito OP oboznámil a súhlasí s nimi.</p>
+
+                <h3>3.2 Predmet zmluvy</h3>
+                <p>Poskytovateľ poskytuje nasledujúce kategórie IT služieb:</p>
+                <ul>
+                    <li>IT podpora a správa infraštruktúry</li>
+                    <li>AI automatizácia a implementácia AI riešení</li>
+                    <li>Tvorba webových stránok a e-shopov</li>
+                    <li>IT konzultácie a strategické poradenstvo</li>
+                    <li>Výjazdová IT podpora pre domácnosti</li>
+                </ul>
+                <p>Konkrétny rozsah, cena a termíny sú vždy dohodnuté individuálnou zmluvou alebo písomnou objednávkou.</p>
+
+                <h3>3.3 Platobné podmienky</h3>
+                <p>Platobné podmienky sa dohodujú individuálne pre každú zákazku. Bežná prax:</p>
+                <ul>
+                    <li>Výjazdové a hodinové práce sú splatné po dokončení prác, pokiaľ nie je dohodnuté inak.</li>
+                    <li>Rozsiahlejšie projekty môžu byť fakturované vo forme zálohových platieb.</li>
+                    <li>Splatnosť faktúr je štandardne 14 dní od vystavenia, pokiaľ nie je dohodnuté inak.</li>
+                    <li>V prípade omeškania s platbou môže byť účtovaný zákonný úrok z omeškania.</li>
+                </ul>
+
+                <h3>3.4 Zodpovednosť a obmedzenie ručenia</h3>
+                <p>Poskytovateľ zodpovedá za riadne plnenie dohodnutých služieb s odbornou starostlivosťou. Poskytovateľ <strong>nezodpovedá</strong> za:</p>
+                <ul>
+                    <li>Škody spôsobené okolnosťami vylučujúcimi zodpovednosť (vyššia moc)</li>
+                    <li>Škody vzniknuté v dôsledku nesprávneho alebo nevhodného použitia dodaných riešení zákazníkom</li>
+                    <li>Stratu dát z dôvodov mimo kontroly poskytovateľa</li>
+                    <li>Nepriame alebo následné škody (ušlý zisk, strata dát a pod.)</li>
+                </ul>
+                <p>Maximálna výška náhrady škody je obmedzená na celkovú sumu zaplatenú zákazníkom za príslušnú službu v predchádzajúcich 12 mesiacoch.</p>
+
+                <h3>3.5 Dôvernosť</h3>
+                <p>Obe strany sa zaväzujú zachovávať mlčanlivosť o dôverných informáciách, ku ktorým získajú prístup v rámci spolupráce. Táto povinnosť trvá aj po ukončení zmluvného vzťahu.</p>
+
+                <h3>3.6 Reklamácie</h3>
+                <p>Zákazník je oprávnený uplatniť reklamáciu písomne na adresu <a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a> do 30 dní od zistenia vady. Poskytovateľ vybaví reklamáciu do 30 pracovných dní.</p>
+
+                <h3>3.7 Rozhodné právo</h3>
+                <p>Zmluvný vzťah medzi poskytovateľom a zákazníkom sa riadi právom Slovenskej republiky. Prípadné spory budú riešené prednostne dohodou, v opačnom prípade pred príslušným súdom v Slovenskej republike.</p>
+
+                <h3>3.8 Zmeny podmienok</h3>
+                <p>Poskytovateľ si vyhradzuje právo tieto OP meniť. O zmenách bude zákazník informovaný prostredníctvom aktualizácie tejto stránky. Dátum poslednej aktualizácie je uvedený v hlavičke dokumentu.</p>
+            </section>
+
+            <!-- 4. Impressum -->
+            <section id="impressum" class="legal-section">
+                <span class="section-tag">// SEKCIA 4</span>
+                <h2>Informácie o spoločnosti / Impressum</h2>
+
+                <table class="impressum-table">
+                    <tbody>
+                        <tr>
+                            <td>Obchodné meno</td>
+                            <td>DrZan Labs</td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td><a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a></td>
+                        </tr>
+                        <tr>
+                            <td>Sídlo</td>
+                            <td>Slovensko</td>
+                        </tr>
+                        <tr>
+                            <td>IČO</td>
+                            <td>[doplniť]</td>
+                        </tr>
+                        <tr>
+                            <td>DIČ</td>
+                            <td>[doplniť]</td>
+                        </tr>
+                        <tr>
+                            <td>IČ DPH</td>
+                            <td>[doplniť, ak platca DPH]</td>
+                        </tr>
+                        <tr>
+                            <td>Zápis v registri</td>
+                            <td>[doplniť — napr. Živnostenský register / Obchodný register SR]</td>
+                        </tr>
+                        <tr>
+                            <td>Dozorný orgán</td>
+                            <td>Slovenská obchodná inšpekcia (SOI)</td>
+                        </tr>
+                        <tr>
+                            <td>Ochrana údajov</td>
+                            <td>Úrad na ochranu osobných údajov SR — <a href="https://www.dataprotection.gov.sk" target="_blank" rel="noopener">dataprotection.gov.sk</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p style="margin-top: 24px;">Pre otázky týkajúce sa ochrany osobných údajov, obchodných podmienok alebo akýchkoľvek právnych záležitostí nás kontaktujte na <a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a>.</p>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="privacy-footer">
+        <div class="container">
+            <p>&copy; 2026 DrZan Labs. Všetky práva vyhradené.</p>
+            <a href="index.html" class="back-link">← Späť na hlavnú stránku</a>
+        </div>
+    </footer>
+
+</body>
+</html>

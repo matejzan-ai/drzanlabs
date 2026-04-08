@@ -1113,6 +1113,18 @@
         if (offerCard) setupFlip(offerCard, '.offer-card-inner', '.offer-order-btn');
     }
 
+    // ---- Cookie Banner ----
+    function initCookieBanner() {
+        if (localStorage.getItem('cookie_consent')) return;
+        const banner = document.getElementById('cookie-banner');
+        if (!banner) return;
+        setTimeout(() => banner.classList.add('visible'), 1200);
+        document.getElementById('cookie-accept').addEventListener('click', () => {
+            localStorage.setItem('cookie_consent', 'accepted');
+            banner.classList.remove('visible');
+        });
+    }
+
     // ---- Mobile Menu ----
     function initMobileMenu() {
         const btn = document.getElementById('mobile-menu');
@@ -1369,6 +1381,7 @@
         initBackground();
         initTiltCards();
         initCardFlip();
+        initCookieBanner();
         initMobileMenu();
         initContactForm();
         initSmoothScroll();
