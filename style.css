@@ -29,6 +29,8 @@ html {
     scroll-behavior: smooth;
     scrollbar-width: thin;
     scrollbar-color: var(--gold-dark) var(--black);
+    overflow-x: hidden;
+    max-width: 100%;
 }
 
 body {
@@ -36,6 +38,7 @@ body {
     background: var(--black);
     color: var(--text);
     overflow-x: hidden;
+    max-width: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -1935,6 +1938,16 @@ input:focus, select:focus, textarea:focus {
     .lang-switch { display: none; }
     /* nav-toggles is now empty on mobile — collapse it */
     .nav-toggles { display: none; }
+}
+
+/* Mobile: replace all translateX reveals with translateY — prevents horizontal overflow */
+@media (max-width: 968px) {
+    .section-reveal.from-left  { transform: translateY(40px); }
+    .section-reveal.from-right { transform: translateY(40px); }
+    .about-content.scroll-reveal { transform: translateY(30px); }
+    .about-visual.scroll-reveal  { transform: translateY(30px); }
+    .contact-info.scroll-reveal  { transform: translateY(30px); }
+    .contact-form.scroll-reveal  { transform: translateY(30px); }
 }
 
 /* Touch devices: flip hints always visible (no hover state) */
