@@ -1035,7 +1035,7 @@
                 currentRX = lerp(currentRX, targetRX, 0.12);
                 currentRY = lerp(currentRY, targetRY, 0.12);
                 const ty = hovering ? lerp(0, -8, Math.abs(currentRX + currentRY) / 10) : lerp(currentRX, 0, 0.12);
-                inner.style.transform = `perspective(1000px) rotateX(${currentRX.toFixed(3)}deg) rotateY(${currentRY.toFixed(3)}deg) translateY(${hovering ? -6 : 0}px)`;
+                inner.style.transform = `perspective(1000px) rotateX(${currentRX.toFixed(3)}deg) rotateY(${currentRY.toFixed(3)}deg) translateY(${hovering ? -3 : 0}px)`;
                 // Stop when close enough to rest
                 if (!hovering && Math.abs(currentRX) < 0.01 && Math.abs(currentRY) < 0.01) {
                     inner.style.transform = '';
@@ -1056,8 +1056,8 @@
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
-                targetRX = ((y - rect.height / 2) / (rect.height / 2)) * -6;
-                targetRY = ((x - rect.width  / 2) / (rect.width  / 2)) *  6;
+                targetRX = ((y - rect.height / 2) / (rect.height / 2)) * -3;
+                targetRY = ((x - rect.width  / 2) / (rect.width  / 2)) *  3;
                 if (!rafId) rafId = requestAnimationFrame(animate);
             });
 

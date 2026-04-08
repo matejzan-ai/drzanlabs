@@ -888,11 +888,9 @@ section {
 }
 
 .service-card:not(.flipped):hover {
-    border-color: rgba(212, 175, 55, 0.2);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(212, 175, 55, 0.05);
+    border-color: rgba(212, 175, 55, 0.45);
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.12), 0 8px 32px rgba(0, 0, 0, 0.35);
 }
-
-.service-card:not(.flipped):hover .card-front::before { opacity: 1; }
 
 .service-card.featured {
     border-color: rgba(212, 175, 55, 0.2);
@@ -1766,47 +1764,12 @@ section {
     50% { opacity: 0; }
 }
 
-/* --- Service card top line sweep --- */
-.card-front::before {
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    background-size: 200% 100%;
-    opacity: 0;
-    transition: opacity 0.4s;
-}
+/* --- Service card top line sweep — removed, border highlight only --- */
 
-.service-card:not(.flipped):hover .card-front::before {
-    opacity: 1;
-    animation: lineSweep 1.5s linear infinite;
-}
-
-@keyframes lineSweep {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
-/* --- Service icon bounce on hover --- */
-.service-card:not(.flipped):hover .service-icon {
-    animation: iconBounce 0.6s ease;
-}
-
-@keyframes iconBounce {
-    0% { transform: translateY(0); }
-    30% { transform: translateY(-8px); }
-    50% { transform: translateY(-4px); }
-    70% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-}
-
-/* --- Service features highlight stagger --- */
+/* --- Service features --- */
 .service-features li {
-    transition: transform 0.3s ease, color 0.3s ease;
+    transition: color 0.3s ease;
 }
-
-.service-card:hover .service-features li { color: var(--text); }
-.service-card:hover .service-features li:nth-child(1) { transition-delay: 0s; }
-.service-card:hover .service-features li:nth-child(2) { transition-delay: 0.05s; }
-.service-card:hover .service-features li:nth-child(3) { transition-delay: 0.1s; }
-.service-card:hover .service-features li:nth-child(4) { transition-delay: 0.15s; }
 
 /* --- Feature icon hover pulse --- */
 .feature-icon {
