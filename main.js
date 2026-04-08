@@ -954,17 +954,43 @@
     // ---- Service Card Flip ----
     function initCardFlip() {
         document.querySelectorAll('.service-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                // Don't flip if clicking the CTA button — let the link navigate
-                if (e.target.closest('.back-cta')) return;
+            let autoFlipTimer = null;
+
+            function flipCard(toFlipped) {
                 const inner = card.querySelector('.card-inner');
+                if (card.classList.contains('flipped') === toFlipped) return;
                 inner.classList.add('flip-anim');
-                card.classList.toggle('flipped');
-                // Reset tilt transform when flipping
+                card.classList.toggle('flipped', toFlipped);
                 inner.style.transform = '';
                 setTimeout(() => inner.classList.remove('flip-anim'), 700);
-                // Retro sound
                 if (retroMode) retroAudio.playClick();
+            }
+
+            function scheduleAutoFlipBack() {
+                clearTimeout(autoFlipTimer);
+                autoFlipTimer = setTimeout(() => {
+                    if (card.classList.contains('flipped')) flipCard(false);
+                }, 3000);
+            }
+
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('.back-cta')) return;
+                const willBeFlipped = !card.classList.contains('flipped');
+                flipCard(willBeFlipped);
+                if (willBeFlipped) {
+                    scheduleAutoFlipBack();
+                } else {
+                    clearTimeout(autoFlipTimer);
+                }
+            });
+
+            // Mouse enter cancels auto-flip timer; mouse leave restarts it
+            card.addEventListener('mouseenter', () => {
+                if (card.classList.contains('flipped')) clearTimeout(autoFlipTimer);
+            });
+
+            card.addEventListener('mouseleave', () => {
+                if (card.classList.contains('flipped')) scheduleAutoFlipBack();
             });
         });
     }
