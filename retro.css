@@ -1,0 +1,468 @@
+/* ========================================
+   DrZan Labs - 8-Bit Retro Mode
+   All styles scoped under body.retro-mode
+   ======================================== */
+
+/* --- Scanlines overlay --- */
+body.retro-mode::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+}
+
+/* --- Base overrides --- */
+body.retro-mode {
+    font-family: 'Press Start 2P', monospace !important;
+    image-rendering: pixelated;
+}
+
+body.retro-mode * {
+    border-radius: 0 !important;
+    font-family: 'Press Start 2P', monospace !important;
+}
+
+/* --- Colors --- */
+body.retro-mode {
+    --gold: #39ff14;
+    --gold-light: #00ffff;
+    --gold-dim: rgba(57, 255, 20, 0.3);
+    --text: #39ff14;
+    --text-dim: #00cc00;
+    --text-muted: #008800;
+    --black: #0a0a0a;
+    --black-light: #0d0d0d;
+    --black-card: #0f1a0f;
+    --accent: #0f1a0f;
+}
+
+/* --- CRT glow on text --- */
+body.retro-mode h1, body.retro-mode h2, body.retro-mode h3, body.retro-mode h4 {
+    text-shadow: 0 0 10px #39ff14, 0 0 20px rgba(57, 255, 20, 0.3) !important;
+    letter-spacing: 2px !important;
+}
+
+body.retro-mode p, body.retro-mode li, body.retro-mode span, body.retro-mode a {
+    text-shadow: 0 0 4px rgba(57, 255, 20, 0.2);
+}
+
+/* --- Navbar --- */
+body.retro-mode #navbar {
+    background: rgba(0, 0, 0, 0.95) !important;
+    border-bottom: 2px solid #39ff14 !important;
+}
+
+body.retro-mode .nav-logo span {
+    font-size: 10px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .nav-links a {
+    font-size: 8px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .nav-cta {
+    background: #39ff14 !important;
+    color: #000 !important;
+    border-color: #39ff14 !important;
+}
+
+body.retro-mode .nav-logo svg polygon {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .nav-logo svg text {
+    fill: #39ff14 !important;
+}
+
+/* --- Hero --- */
+body.retro-mode .hero-title {
+    font-size: clamp(20px, 5vw, 48px) !important;
+    animation: retroBlink 1.5s step-end infinite;
+}
+
+@keyframes retroBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+body.retro-mode .hero-tagline {
+    color: #00ffff !important;
+    font-size: clamp(8px, 2vw, 12px) !important;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+body.retro-mode .hero-desc {
+    font-size: clamp(7px, 1.5vw, 10px) !important;
+    color: #39ff14 !important;
+    line-height: 2 !important;
+}
+
+body.retro-mode .hero-dr, body.retro-mode .hero-zan {
+    color: #39ff14 !important;
+}
+
+body.retro-mode .hero-labs {
+    color: #00ffff !important;
+    font-size: 0.4em !important;
+}
+
+/* --- Hex logo retro --- */
+body.retro-mode .hero-hex-svg polygon {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .hero-hex-svg text {
+    fill: #39ff14 !important;
+}
+
+body.retro-mode .hero-hex-svg line {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .hero-hex-svg circle {
+    fill: #39ff14 !important;
+}
+
+/* --- Buttons --- */
+body.retro-mode .btn {
+    font-size: 8px !important;
+    border: 2px solid #39ff14 !important;
+    text-transform: uppercase;
+    position: relative;
+}
+
+body.retro-mode .btn-primary {
+    background: #39ff14 !important;
+    color: #000 !important;
+    box-shadow: 4px 4px 0 #006600 !important;
+}
+
+body.retro-mode .btn-primary:hover {
+    transform: translate(2px, 2px) !important;
+    box-shadow: 2px 2px 0 #006600 !important;
+}
+
+body.retro-mode .btn-outline {
+    background: transparent !important;
+    color: #39ff14 !important;
+    box-shadow: 4px 4px 0 #003300 !important;
+}
+
+body.retro-mode .btn-outline:hover {
+    background: rgba(57, 255, 20, 0.1) !important;
+    transform: translate(2px, 2px) !important;
+    box-shadow: 2px 2px 0 #003300 !important;
+}
+
+/* --- Section headers --- */
+body.retro-mode .section-tag {
+    color: #ff00ff !important;
+    font-size: 8px !important;
+    text-shadow: 0 0 8px #ff00ff;
+}
+
+body.retro-mode .section-header h2 {
+    font-size: clamp(12px, 3vw, 20px) !important;
+}
+
+body.retro-mode .section-header p {
+    font-size: 8px !important;
+    line-height: 2 !important;
+}
+
+/* --- Service cards --- */
+body.retro-mode .service-card {
+    background: #0f1a0f !important;
+    border: 2px solid #39ff14 !important;
+    box-shadow: 6px 6px 0 #003300 !important;
+}
+
+body.retro-mode .service-card:hover {
+    transform: translate(-3px, -3px) !important;
+    box-shadow: 9px 9px 0 #003300 !important;
+}
+
+body.retro-mode .service-card.featured {
+    border-color: #00ffff !important;
+    box-shadow: 6px 6px 0 #004444 !important;
+}
+
+body.retro-mode .service-badge {
+    background: #ff00ff !important;
+    color: #000 !important;
+    font-size: 6px !important;
+}
+
+body.retro-mode .service-card h3 {
+    font-size: 10px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .service-card p {
+    font-size: 7px !important;
+    line-height: 2 !important;
+}
+
+body.retro-mode .service-features li {
+    font-size: 7px !important;
+    line-height: 2.2 !important;
+}
+
+body.retro-mode .service-features li::before {
+    color: #00ffff !important;
+}
+
+body.retro-mode .service-icon svg {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .service-icon svg circle[fill] {
+    fill: #39ff14 !important;
+}
+
+/* --- Stat cards --- */
+body.retro-mode .stat-card {
+    background: #0f1a0f !important;
+    border: 2px solid #00ffff !important;
+    box-shadow: 4px 4px 0 #003333 !important;
+}
+
+body.retro-mode .stat-number {
+    color: #39ff14 !important;
+    font-size: 20px !important;
+    text-shadow: 0 0 10px #39ff14;
+}
+
+body.retro-mode .stat-unit {
+    color: #00ffff !important;
+}
+
+body.retro-mode .stat-label {
+    font-size: 6px !important;
+    color: #008800 !important;
+}
+
+/* --- About --- */
+body.retro-mode .about-content h2 {
+    font-size: clamp(12px, 3vw, 18px) !important;
+}
+
+body.retro-mode .about-content p {
+    font-size: 7px !important;
+    line-height: 2.2 !important;
+}
+
+body.retro-mode .about-feature h4 {
+    font-size: 8px !important;
+    color: #00ffff !important;
+}
+
+body.retro-mode .about-feature p {
+    font-size: 7px !important;
+}
+
+body.retro-mode .feature-icon {
+    font-size: 20px;
+    filter: saturate(3) hue-rotate(80deg);
+}
+
+/* --- Home Offer --- */
+body.retro-mode .offer-card {
+    background: #0f1a0f !important;
+    border: 2px solid #ff00ff !important;
+    box-shadow: 6px 6px 0 #440044 !important;
+}
+
+body.retro-mode .offer-card::before {
+    background: linear-gradient(90deg, transparent, #ff00ff, transparent) !important;
+}
+
+body.retro-mode .offer-badge {
+    background: #ff00ff !important;
+    color: #000 !important;
+    font-size: 6px !important;
+}
+
+body.retro-mode .offer-text h2 {
+    font-size: clamp(10px, 3vw, 16px) !important;
+}
+
+body.retro-mode .offer-text h2 .gold {
+    color: #00ffff !important;
+}
+
+body.retro-mode .offer-features li {
+    font-size: 7px !important;
+    line-height: 2.2 !important;
+}
+
+body.retro-mode .offer-features li svg {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .price-value {
+    color: #39ff14 !important;
+    text-shadow: 0 0 15px #39ff14;
+    font-size: 32px !important;
+}
+
+body.retro-mode .price-label {
+    font-size: 6px !important;
+}
+
+body.retro-mode .offer-cta {
+    background: rgba(57, 255, 20, 0.05) !important;
+    border-color: #39ff14 !important;
+}
+
+/* --- Contact --- */
+body.retro-mode .contact-info h2 {
+    font-size: clamp(12px, 3vw, 18px) !important;
+}
+
+body.retro-mode .contact-info p {
+    font-size: 7px !important;
+    line-height: 2.2 !important;
+}
+
+body.retro-mode .contact-label {
+    font-size: 7px !important;
+    color: #ff00ff !important;
+}
+
+body.retro-mode .contact-icon svg {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode input,
+body.retro-mode select,
+body.retro-mode textarea {
+    background: #0a0a0a !important;
+    border: 2px solid #39ff14 !important;
+    color: #39ff14 !important;
+    font-size: 8px !important;
+    caret-color: #39ff14;
+}
+
+body.retro-mode input::placeholder,
+body.retro-mode textarea::placeholder {
+    color: #006600 !important;
+}
+
+body.retro-mode label {
+    font-size: 7px !important;
+    color: #008800 !important;
+}
+
+body.retro-mode input:focus,
+body.retro-mode select:focus,
+body.retro-mode textarea:focus {
+    border-color: #00ffff !important;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3) !important;
+}
+
+/* --- Footer --- */
+body.retro-mode #footer {
+    border-top: 2px solid #39ff14 !important;
+}
+
+body.retro-mode .footer-brand span {
+    font-size: 8px !important;
+}
+
+body.retro-mode .footer-links a {
+    font-size: 7px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .footer-copy p {
+    font-size: 6px !important;
+    color: #006600 !important;
+}
+
+body.retro-mode .footer-brand svg polygon {
+    stroke: #39ff14 !important;
+}
+
+body.retro-mode .footer-brand svg text {
+    fill: #39ff14 !important;
+}
+
+/* --- Scroll indicator --- */
+body.retro-mode .scroll-line {
+    background: #39ff14 !important;
+}
+
+body.retro-mode .scroll-indicator span {
+    color: #39ff14 !important;
+    font-size: 7px !important;
+}
+
+/* --- Gold class override --- */
+body.retro-mode .gold {
+    color: #00ffff !important;
+}
+
+/* --- Mobile menu --- */
+body.retro-mode .mobile-menu span {
+    background: #39ff14 !important;
+}
+
+body.retro-mode .mobile-nav {
+    background: #0a0a0a !important;
+    border-left: 2px solid #39ff14 !important;
+}
+
+body.retro-mode .mobile-nav-link {
+    color: #39ff14 !important;
+    font-size: 10px !important;
+    border-bottom: 1px solid #003300 !important;
+}
+
+/* --- Pixel cursor --- */
+body.retro-mode, body.retro-mode * {
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='0' y='0' width='4' height='4' fill='%2339ff14'/%3E%3Crect x='4' y='4' width='4' height='4' fill='%2339ff14'/%3E%3Crect x='8' y='8' width='4' height='4' fill='%2339ff14'/%3E%3Crect x='0' y='4' width='4' height='4' fill='%2339ff14'/%3E%3Crect x='0' y='8' width='4' height='4' fill='%2339ff14'/%3E%3C/svg%3E") 0 0, auto;
+}
+
+/* --- Custom scrollbar --- */
+body.retro-mode::-webkit-scrollbar {
+    width: 10px;
+}
+
+body.retro-mode::-webkit-scrollbar-track {
+    background: #0a0a0a;
+    border-left: 2px solid #003300;
+}
+
+body.retro-mode::-webkit-scrollbar-thumb {
+    background: #39ff14;
+    border: 2px solid #0a0a0a;
+}
+
+/* --- Retro toggle active state in navbar --- */
+body.retro-mode .lang-sw-btn.active {
+    color: #39ff14 !important;
+}
+
+body.retro-mode .lang-sw-sep {
+    color: #006600 !important;
+}
+
+body.retro-mode .mute-toggle {
+    color: #39ff14 !important;
+}
+
+/* --- Section transitions in retro --- */
+body.retro-mode .section-reveal.from-bottom { transform: translateY(30px); }
+body.retro-mode .section-reveal.from-left { transform: translateX(-30px); }
+body.retro-mode .section-reveal.from-right { transform: translateX(30px); }

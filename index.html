@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DrZan Labs | Kde technologia stretava inteligenciu</title>
+    <meta name="description" content="DrZan Labs - IT Support & AI Automatizacia. Inovatívne technologické riešenia pre váš biznis.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="retro.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Ctext x='50' y='58' text-anchor='middle' font-family='Arial' font-weight='bold' font-size='32' fill='%23d4af37'%3EDZ%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+    <!-- Portal Intro Overlay -->
+    <div id="portal-overlay">
+        <canvas id="portal-canvas"></canvas>
+        <div id="portal-text">
+            <div class="portal-logo-intro">
+                <svg viewBox="0 0 200 200" class="portal-hex">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ffd700"/>
+                            <stop offset="50%" style="stop-color:#d4af37"/>
+                            <stop offset="100%" style="stop-color:#b8860b"/>
+                        </linearGradient>
+                    </defs>
+                    <polygon points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+                    <text x="100" y="112" text-anchor="middle" font-family="Rajdhani" font-weight="400" font-size="42" letter-spacing="6" fill="url(#goldGrad)">DZ</text>
+                </svg>
+            </div>
+            <div class="lang-chooser" id="lang-chooser">
+                <span class="lang-label">Choose language / Vyberte jazyk</span>
+                <div class="lang-buttons">
+                    <button class="lang-btn" data-lang="sk">SK</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+                <div class="lang-timer"><div class="lang-timer-bar" id="lang-timer-bar"></div></div>
+            </div>
+            <p class="portal-subtitle" id="portal-subtitle"></p>
+        </div>
+        <button id="skip-intro" aria-label="Preskočiť intro">Preskočiť <span>→</span></button>
+    </div>
+
+    <!-- Particle Background Canvas -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="hidden">
+        <div class="nav-container">
+            <a href="#hero" class="nav-logo">
+                <svg viewBox="0 0 200 200" width="40" height="40">
+                    <polygon points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="#d4af37" stroke-width="4"/>
+                    <text x="100" y="112" text-anchor="middle" font-family="Rajdhani" font-weight="400" font-size="42" letter-spacing="6" fill="#d4af37">DZ</text>
+                </svg>
+                <span>DrZan Labs</span>
+            </a>
+            <div class="nav-links">
+                <a href="#services">Služby</a>
+                <a href="#about">O nás</a>
+                <a href="#contact" class="nav-cta">Kontakt</a>
+            </div>
+            <div class="nav-toggles">
+                <div class="lang-switch" id="lang-switch">
+                    <span class="lang-sw-btn active" data-lang="sk">SK</span>
+                    <span class="lang-sw-sep">/</span>
+                    <span class="lang-sw-btn" data-lang="en">EN</span>
+                </div>
+                <button class="retro-toggle" id="retro-toggle" title="8-Bit Mode">8BIT</button>
+                <button class="mute-toggle" id="mute-toggle" title="Toggle Sound">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M11 5L6 9H2v6h4l5 4V5z" id="mute-speaker"/>
+                        <path d="M19.07 4.93a10 10 0 010 14.14M15.54 8.46a5 5 0 010 7.07" id="mute-waves"/>
+                    </svg>
+                </button>
+            </div>
+            <button class="mobile-menu" id="mobile-menu" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Nav -->
+    <div id="mobile-nav" class="mobile-nav">
+        <a href="#hero" class="mobile-nav-link">Domov</a>
+        <a href="#services" class="mobile-nav-link">Služby</a>
+        <a href="#about" class="mobile-nav-link">O nás</a>
+        <a href="#contact" class="mobile-nav-link">Kontakt</a>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="hidden">
+
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="hero-content">
+                <div class="hero-logo hero-anim" id="hero-logo">
+                    <svg viewBox="0 0 300 300" class="hero-hex-svg">
+                        <defs>
+                            <linearGradient id="heroGold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#ffd700"/>
+                                <stop offset="50%" style="stop-color:#d4af37"/>
+                                <stop offset="100%" style="stop-color:#b8860b"/>
+                            </linearGradient>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        <!-- Outer hex -->
+                        <polygon points="150,15 267,82.5 267,217.5 150,285 33,217.5 33,82.5"
+                            fill="none" stroke="url(#heroGold)" stroke-width="2" filter="url(#glow)" class="hex-outer"/>
+                        <!-- Inner hex -->
+                        <polygon points="150,45 237,97.5 237,202.5 150,255 63,202.5 63,97.5"
+                            fill="none" stroke="url(#heroGold)" stroke-width="1.5" opacity="0.5" class="hex-inner"/>
+                        <!-- Circuit lines -->
+                        <line x1="150" y1="15" x2="150" y2="0" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <line x1="267" y1="82.5" x2="282" y2="75" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <line x1="267" y1="217.5" x2="282" y2="225" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <line x1="33" y1="82.5" x2="18" y2="75" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <line x1="33" y1="217.5" x2="18" y2="225" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <line x1="150" y1="285" x2="150" y2="300" stroke="#d4af37" stroke-width="1" opacity="0.4"/>
+                        <!-- Corner dots -->
+                        <circle cx="150" cy="15" r="3" fill="#d4af37" opacity="0.6"/>
+                        <circle cx="267" cy="82.5" r="3" fill="#d4af37" opacity="0.6"/>
+                        <circle cx="267" cy="217.5" r="3" fill="#d4af37" opacity="0.6"/>
+                        <circle cx="150" cy="285" r="3" fill="#d4af37" opacity="0.6"/>
+                        <circle cx="33" cy="217.5" r="3" fill="#d4af37" opacity="0.6"/>
+                        <circle cx="33" cy="82.5" r="3" fill="#d4af37" opacity="0.6"/>
+                        <!-- DZ Text -->
+                        <text x="150" y="165" text-anchor="middle" font-family="Rajdhani" font-weight="400" font-size="62" letter-spacing="8" fill="url(#heroGold)" filter="url(#glow)">DZ</text>
+                    </svg>
+                </div>
+                <h1 class="hero-title hero-anim">
+                    <span class="hero-dr">Dr</span><span class="hero-zan">Zan</span> <span class="hero-labs">Labs</span>
+                </h1>
+                <p class="hero-tagline hero-anim">Kde technológia stretáva inteligenciu</p>
+                <p class="hero-desc hero-anim">IT podpora novej generácie. Automatizácia poháňaná umelou inteligenciou.</p>
+                <div class="hero-buttons hero-anim">
+                    <a href="#services" class="btn btn-primary">Naše služby</a>
+                    <a href="#contact" class="btn btn-outline">Kontaktujte nás</a>
+                </div>
+            </div>
+            <div class="scroll-indicator hero-anim">
+                <div class="scroll-line"></div>
+                <span>Scroll</span>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-tag">// SLUŽBY</span>
+                    <h2>Čo pre vás môžeme urobiť</h2>
+                    <p>Kombinujeme expertízu v IT s pokročilou AI automatizáciou</p>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card" data-tilt>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="url(#heroGold)" stroke-width="2">
+                                <rect x="8" y="12" width="48" height="32" rx="2"/>
+                                <line x1="32" y1="44" x2="32" y2="52"/>
+                                <line x1="20" y1="52" x2="44" y2="52"/>
+                                <circle cx="32" cy="28" r="8" stroke-dasharray="4 2"/>
+                                <path d="M28 28l3 3 5-6"/>
+                            </svg>
+                        </div>
+                        <h3>IT Support & Infraštruktúra</h3>
+                        <p>Kompletná správa IT systémov, sietí a serverov. Monitoring 24/7, rýchla odozva, preventívna údržba.</p>
+                        <ul class="service-features">
+                            <li>Helpdesk & vzdialená podpora</li>
+                            <li>Správa sietí a serverov</li>
+                            <li>Kybernetická bezpečnosť</li>
+                            <li>Cloud migrácia</li>
+                        </ul>
+                    </div>
+                    <div class="service-card featured" data-tilt>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="url(#heroGold)" stroke-width="2">
+                                <circle cx="32" cy="20" r="10"/>
+                                <circle cx="32" cy="20" r="4"/>
+                                <path d="M32 30v6"/>
+                                <path d="M20 42h24"/>
+                                <path d="M24 42v8"/>
+                                <path d="M32 42v8"/>
+                                <path d="M40 42v8"/>
+                                <path d="M16 36l8 6"/>
+                                <path d="M48 36l-8 6"/>
+                            </svg>
+                        </div>
+                        <h3>AI Automatizácia</h3>
+                        <p>Inteligentné workflow automatizácie, chatboty, a AI riešenia šité na mieru pre váš biznis.</p>
+                        <ul class="service-features">
+                            <li>AI chatboty & asistenti</li>
+                            <li>Automatizácia procesov</li>
+                            <li>Dátová analytika s AI</li>
+                            <li>Integrácia LLM modelov</li>
+                        </ul>
+                    </div>
+                    <div class="service-card" data-tilt>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="url(#heroGold)" stroke-width="2">
+                                <rect x="6" y="8" width="52" height="36" rx="3"/>
+                                <line x1="6" y1="16" x2="58" y2="16"/>
+                                <circle cx="12" cy="12" r="1.5" fill="#d4af37"/>
+                                <circle cx="18" cy="12" r="1.5" fill="#d4af37"/>
+                                <circle cx="24" cy="12" r="1.5" fill="#d4af37"/>
+                                <rect x="14" y="22" width="16" height="16" rx="1"/>
+                                <path d="M36 22h12M36 28h8M36 34h10"/>
+                                <path d="M22 48l-6 8M42 48l6 8M16 56h32"/>
+                            </svg>
+                        </div>
+                        <h3>Weby & E-shopy</h3>
+                        <p>Tvorba reprezentatívnych webových stránok a e-shopov. Moderný dizajn, rýchle načítanie, optimalizácia pre konverzie.</p>
+                        <ul class="service-features">
+                            <li>Prezentačné weby na mieru</li>
+                            <li>E-shopy & online obchody</li>
+                            <li>SEO & výkonnostná optimalizácia</li>
+                            <li>Správa & údržba webov</li>
+                        </ul>
+                    </div>
+                    <div class="service-card" data-tilt>
+                        <div class="service-icon">
+                            <svg viewBox="0 0 64 64" fill="none" stroke="url(#heroGold)" stroke-width="2">
+                                <circle cx="32" cy="16" r="8"/>
+                                <path d="M20 40c0-6.627 5.373-12 12-12s12 5.373 12 12"/>
+                                <path d="M44 28l8 4-4 8"/>
+                                <path d="M20 28l-8 4 4 8"/>
+                                <line x1="32" y1="40" x2="32" y2="56"/>
+                                <line x1="24" y1="56" x2="40" y2="56"/>
+                            </svg>
+                        </div>
+                        <h3>Konzultácie & Stratégia</h3>
+                        <p>Strategické poradenstvo v oblasti IT a digitálnej transformácie. Navrhujeme riešenia šité na mieru vašim cieľom.</p>
+                        <ul class="service-features">
+                            <li>IT audit & analýza potrieb</li>
+                            <li>Digitálna transformácia</li>
+                            <li>Technologická roadmapa</li>
+                            <li>Optimalizácia nákladov</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-content">
+                        <span class="section-tag">// O NÁS</span>
+                        <h2>Technológia, ktorá pracuje <span class="gold">pre vás</span></h2>
+                        <p>DrZan Labs je technologická firma zameraná na poskytovanie špičkového IT supportu a implementáciu AI automatizácie. Veríme, že správna technológia dokáže transformovať akýkoľvek biznis.</p>
+                        <p>Naša misia je jednoduchá: zbaviť vás technických starostí a dať vám nástroje, ktoré vám dajú konkurenčnú výhodu.</p>
+                        <div class="about-features">
+                            <div class="about-feature">
+                                <div class="feature-icon">⚡</div>
+                                <div>
+                                    <h4>Rýchla odozva</h4>
+                                    <p>Priemerný čas reakcie pod 15 minút</p>
+                                </div>
+                            </div>
+                            <div class="about-feature">
+                                <div class="feature-icon">🔒</div>
+                                <div>
+                                    <h4>Bezpečnosť</h4>
+                                    <p>Kybernetická ochrana na enterprise úrovni</p>
+                                </div>
+                            </div>
+                            <div class="about-feature">
+                                <div class="feature-icon">🤖</div>
+                                <div>
+                                    <h4>AI-First prístup</h4>
+                                    <p>Automatizácia ako základ, nie doplnok</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-visual">
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-number" data-target="99.9">0</div>
+                                <div class="stat-unit">%</div>
+                                <div class="stat-label">Uptime garantovaný</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" data-target="15">0</div>
+                                <div class="stat-unit">min</div>
+                                <div class="stat-label">Priemerná odozva</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" data-target="500">0</div>
+                                <div class="stat-unit">+</div>
+                                <div class="stat-label">Vyriešených ticketov</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number" data-target="50">0</div>
+                                <div class="stat-unit">+</div>
+                                <div class="stat-label">AI automatizácií</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Home IT Support Offer -->
+        <section id="home-offer">
+            <div class="container">
+                <div class="offer-card">
+                    <div class="offer-badge">PRE DOMÁCNOSTI</div>
+                    <div class="offer-content">
+                        <div class="offer-text">
+                            <span class="section-tag">// ŠPECIÁLNA PONUKA</span>
+                            <h2>IT podpora <span class="gold">priamo u vás doma</span></h2>
+                            <p>Nefunguje vám počítač, internet alebo tlačiareň? Neviete si rady s nastavením? Prídeme priamo k vám domov a vyriešime to na mieste.</p>
+                            <ul class="offer-features">
+                                <li>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Diagnostika a oprava PC / notebooku</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Nastavenie Wi-Fi, routera a siete</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Inštalácia softvéru a antivírusu</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Zálohovanie dát a obnova systému</span>
+                                </li>
+                                <li>
+                                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#d4af37" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                                    <span>Poradenstvo pri kúpe nového zariadenia</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="offer-cta">
+                            <div class="offer-icon">
+                                <svg viewBox="0 0 80 80" fill="none" stroke="url(#heroGold)" stroke-width="2">
+                                    <path d="M20 60V28a4 4 0 014-4h32a4 4 0 014 4v32"/>
+                                    <path d="M12 60h56"/>
+                                    <rect x="30" y="36" width="20" height="14" rx="2"/>
+                                    <path d="M40 50v6"/>
+                                    <path d="M28 24l12-10 12 10"/>
+                                </svg>
+                            </div>
+                            <div class="offer-price">
+                                <span class="price-label">Výjazd už od</span>
+                                <span class="price-value">29€</span>
+                            </div>
+                            <a href="#contact" class="btn btn-primary btn-full">Objednať výjazd</a>
+                            <span class="offer-note">Dostupnosť: Bratislava a okolie</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <span class="section-tag">// KONTAKT</span>
+                        <h2>Poďme spolupracovať</h2>
+                        <p>Máte otázku alebo projekt? Ozvite sa nám a spoločne nájdeme riešenie.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5">
+                                        <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="contact-label">Email</span>
+                                    <a href="mailto:info@drzanlabs.com">info@drzanlabs.com</a>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.5">
+                                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <span class="contact-label">Lokácia</span>
+                                    <span>Slovensko</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Vaše meno" required>
+                            <label for="name">Meno</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="email@priklad.sk" required>
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <select id="service">
+                                <option value="" disabled selected>Vyberte službu</option>
+                                <option>IT Support</option>
+                                <option>AI Automatizácia</option>
+                                <option>Weby & E-shopy</option>
+                                <option>Konzultácia</option>
+                                <option>IT podpora pre domácnosť</option>
+                                <option>Iné</option>
+                            </select>
+                            <label for="service">Služba</label>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="4" placeholder="Popíšte váš projekt alebo otázku..." required></textarea>
+                            <label for="message">Správa</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Odoslať správu</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-brand">
+                        <svg viewBox="0 0 200 200" width="36" height="36">
+                            <polygon points="100,10 178,55 178,145 100,190 22,145 22,55" fill="none" stroke="#d4af37" stroke-width="4"/>
+                            <text x="100" y="112" text-anchor="middle" font-family="Rajdhani" font-weight="400" font-size="42" letter-spacing="6" fill="#d4af37">DZ</text>
+                        </svg>
+                        <span>DrZan Labs</span>
+                    </div>
+                    <div class="footer-links">
+                        <a href="#services">Služby</a>
+                        <a href="#about">O nás</a>
+                        <a href="#contact">Kontakt</a>
+                    </div>
+                    <div class="footer-copy">
+                        <p>&copy; 2026 DrZan Labs. Všetky práva vyhradené.</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
