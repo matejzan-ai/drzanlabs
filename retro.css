@@ -187,14 +187,47 @@ body.retro-mode .service-card {
     box-shadow: 6px 6px 0 #003300 !important;
 }
 
-body.retro-mode .service-card:hover {
-    transform: translate(-3px, -3px) !important;
+body.retro-mode .service-card:not(.flipped):hover {
     box-shadow: 9px 9px 0 #003300 !important;
 }
 
 body.retro-mode .service-card.featured {
     border-color: #00ffff !important;
     box-shadow: 6px 6px 0 #004444 !important;
+}
+
+/* --- Card back retro --- */
+body.retro-mode .card-back {
+    background: #0a0a0a !important;
+    border: 2px solid #00ffff !important;
+}
+
+body.retro-mode .card-back-inner h3 {
+    color: #00ffff !important;
+    font-size: 9px !important;
+    text-shadow: 0 0 8px #00ffff !important;
+}
+
+body.retro-mode .back-desc {
+    font-size: 6px !important;
+    line-height: 2 !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .back-list li {
+    font-size: 6px !important;
+    line-height: 2 !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .back-list li::before {
+    color: #ff00ff !important;
+}
+
+body.retro-mode .flip-hint,
+body.retro-mode .flip-back-hint {
+    color: #008800 !important;
+    font-size: 6px !important;
 }
 
 body.retro-mode .service-badge {

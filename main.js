@@ -51,6 +51,21 @@
             svc4Title: 'Consulting & Strategy',
             svc4Desc: 'Strategic consulting in IT and digital transformation. We design solutions tailored to your goals.',
             svc4F1: 'IT audit & needs analysis', svc4F2: 'Digital transformation', svc4F3: 'Technology roadmap', svc4F4: 'Cost optimization',
+            // Service card backs
+            svc1Back: 'We provide comprehensive management of your IT infrastructure — from server and network monitoring to instant help during outages. Our team responds within 15 minutes and ensures 99.9% system uptime.',
+            svc1BackB1: '24/7 monitoring with automated alerts', svc1BackB2: 'SLA-guaranteed response within 15 minutes', svc1BackB3: 'Backup, recovery and disaster recovery',
+            svc1BackCta: "I'm interested",
+            svc2Back: 'We implement AI solutions that replace repetitive manual tasks. Chatbots, automated reports, predictive analytics — all tailored to your process.',
+            svc2BackB1: 'Saves up to 70% time on routine tasks', svc2BackB2: 'Integration with existing systems (CRM, ERP)', svc2BackB3: 'Continuous improvement via ML feedback',
+            svc2BackCta: "I'm interested",
+            svc3Back: 'We design and develop websites and e-shops that convert visitors into customers. Focus on speed, SEO and mobile optimization.',
+            svc3BackB1: 'Average PageSpeed score 95+', svc3BackB2: 'Responsive design for all devices', svc3BackB3: 'Custom CMS, easy content management',
+            svc3BackCta: "I'm interested",
+            svc4Back: 'We offer in-depth analysis of your IT processes and a concrete technology roadmap. We help companies optimize costs and navigate digital transformation.',
+            svc4BackB1: 'IT audit + action plan within 5 business days', svc4BackB2: 'Independent advice without conflict of interest', svc4BackB3: 'Measurable KPIs for every transformation step',
+            svc4BackCta: "I'm interested",
+            flipHint: 'click for more →',
+            flipBackHint: '← back',
             // About
             aboutTag: '// ABOUT US',
             aboutTitle: 'Technology that works <span class="gold">for you</span>',
@@ -118,6 +133,21 @@
             svc4Title: 'Konzultácie & Stratégia',
             svc4Desc: 'Strategické poradenstvo v oblasti IT a digitálnej transformácie. Navrhujeme riešenia šité na mieru vašim cieľom.',
             svc4F1: 'IT audit & analýza potrieb', svc4F2: 'Digitálna transformácia', svc4F3: 'Technologická roadmapa', svc4F4: 'Optimalizácia nákladov',
+            // Service card backs
+            svc1Back: 'Poskytujeme komplexnú správu vašej IT infraštruktúry — od monitoringu serverov a sietí až po okamžitú pomoc pri výpadkoch. Náš tím reaguje do 15 minút a zabezpečuje 99.9% dostupnosť systémov.',
+            svc1BackB1: 'Monitoring 24/7 s automatickými alertami', svc1BackB2: 'SLA garantovaná odozva do 15 minút', svc1BackB3: 'Zálohovanie, obnova a disaster recovery',
+            svc1BackCta: 'Mám záujem',
+            svc2Back: 'Implementujeme AI riešenia, ktoré nahradia opakujúce sa manuálne úlohy. Chatboty, automatizované reporty, prediktívna analytika — všetko na mieru vášmu procesu.',
+            svc2BackB1: 'Ušetrí až 70% času na rutinných úlohách', svc2BackB2: 'Integrácia s CRM, ERP a existujúcimi systémami', svc2BackB3: 'Kontinuálne zlepšovanie cez ML feedback',
+            svc2BackCta: 'Mám záujem',
+            svc3Back: 'Navrhujeme a vyvíjame weby a e-shopy, ktoré konvertujú návštevníkov na zákazníkov. Dôraz na rýchlosť, SEO a mobilnú optimalizáciu.',
+            svc3BackB1: 'Priemerný PageSpeed skóre 95+', svc3BackB2: 'Responzívny dizajn pre všetky zariadenia', svc3BackB3: 'Vlastný CMS, jednoduchá správa obsahu',
+            svc3BackCta: 'Mám záujem',
+            svc4Back: 'Ponúkame hĺbkovú analýzu vašich IT procesov a tvorbu konkrétnej technologickej roadmapy. Pomáhame firmám optimalizovať náklady a prejsť digitálnou transformáciou.',
+            svc4BackB1: 'IT audit + akčný plán do 5 pracovných dní', svc4BackB2: 'Nezávislé poradenstvo bez konfliktu záujmov', svc4BackB3: 'Merateľné KPIs pre každý krok transformácie',
+            svc4BackCta: 'Mám záujem',
+            flipHint: 'kliknite pre viac →',
+            flipBackHint: '← späť',
             aboutTag: '// O NÁS',
             aboutTitle: 'Technológia, ktorá pracuje <span class="gold">pre vás</span>',
             aboutP1: 'DrZan Labs je technologická firma zameraná na poskytovanie špičkového IT supportu a implementáciu AI automatizácie. Veríme, že správna technológia dokáže transformovať akýkoľvek biznis.',
@@ -199,13 +229,33 @@
         [1,2,3,4].forEach(n => {
             const card = cards[n-1];
             if (!card) return;
-            card.querySelector('h3').textContent = t['svc'+n+'Title'];
-            card.querySelector('p').textContent = t['svc'+n+'Desc'];
-            const lis = card.querySelectorAll('.service-features li');
-            lis[0].textContent = t['svc'+n+'F1'];
-            lis[1].textContent = t['svc'+n+'F2'];
-            lis[2].textContent = t['svc'+n+'F3'];
-            lis[3].textContent = t['svc'+n+'F4'];
+            // Front face
+            const front = card.querySelector('.card-front');
+            if (front) {
+                front.querySelector('h3').textContent = t['svc'+n+'Title'];
+                front.querySelector('p').textContent = t['svc'+n+'Desc'];
+                const lis = front.querySelectorAll('.service-features li');
+                lis[0].textContent = t['svc'+n+'F1'];
+                lis[1].textContent = t['svc'+n+'F2'];
+                lis[2].textContent = t['svc'+n+'F3'];
+                lis[3].textContent = t['svc'+n+'F4'];
+                const flipHintEl = front.querySelector('.flip-hint');
+                if (flipHintEl) flipHintEl.textContent = t.flipHint;
+            }
+            // Back face
+            const back = card.querySelector('.card-back-inner');
+            if (back) {
+                back.querySelector('h3').textContent = t['svc'+n+'Title'];
+                back.querySelector('.back-desc').textContent = t['svc'+n+'Back'];
+                const blis = back.querySelectorAll('.back-list li');
+                blis[0].textContent = t['svc'+n+'BackB1'];
+                blis[1].textContent = t['svc'+n+'BackB2'];
+                blis[2].textContent = t['svc'+n+'BackB3'];
+                const backCta = back.querySelector('.back-cta');
+                if (backCta) backCta.textContent = t['svc'+n+'BackCta'];
+                const flipBackHintEl = back.querySelector('.flip-back-hint');
+                if (flipBackHintEl) flipBackHintEl.textContent = t.flipBackHint;
+            }
         });
 
         // About
@@ -879,7 +929,10 @@
     // ---- 3D Tilt Cards ----
     function initTiltCards() {
         document.querySelectorAll('[data-tilt]').forEach(card => {
+            const inner = card.querySelector('.card-inner') || card;
+
             card.addEventListener('mousemove', (e) => {
+                if (card.classList.contains('flipped')) return;
                 const rect = card.getBoundingClientRect();
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
@@ -887,12 +940,31 @@
                 const centerY = rect.height / 2;
                 const rotateX = (y - centerY) / centerY * -5;
                 const rotateY = (x - centerX) / centerX * 5;
-
-                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+                inner.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
             });
 
             card.addEventListener('mouseleave', () => {
-                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+                if (!card.classList.contains('flipped')) {
+                    inner.style.transform = '';
+                }
+            });
+        });
+    }
+
+    // ---- Service Card Flip ----
+    function initCardFlip() {
+        document.querySelectorAll('.service-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Don't flip if clicking the CTA button — let the link navigate
+                if (e.target.closest('.back-cta')) return;
+                const inner = card.querySelector('.card-inner');
+                inner.classList.add('flip-anim');
+                card.classList.toggle('flipped');
+                // Reset tilt transform when flipping
+                inner.style.transform = '';
+                setTimeout(() => inner.classList.remove('flip-anim'), 700);
+                // Retro sound
+                if (retroMode) retroAudio.playClick();
             });
         });
     }
@@ -1152,6 +1224,7 @@
         initPortal();
         initBackground();
         initTiltCards();
+        initCardFlip();
         initMobileMenu();
         initContactForm();
         initSmoothScroll();
