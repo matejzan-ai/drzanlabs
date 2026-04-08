@@ -1094,14 +1094,42 @@ section {
 
 .offer-card {
     position: relative;
-    background: linear-gradient(135deg, var(--black-card) 0%, rgba(212, 175, 55, 0.05) 100%);
     border: 1px solid var(--gold-dim);
     border-radius: 16px;
+    perspective: 1400px;
+    cursor: pointer;
+}
+
+/* ---- Offer card flip ---- */
+.offer-card-inner {
+    position: relative;
+    transform-style: preserve-3d;
+    border-radius: 16px;
+}
+
+.offer-card-inner.flip-anim {
+    transition: transform 0.65s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+
+.offer-card.flipped .offer-card-inner {
+    transform: rotateY(180deg);
+}
+
+.offer-card-front,
+.offer-card-back {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    border-radius: 16px;
+}
+
+.offer-card-front {
+    background: linear-gradient(135deg, var(--black-card) 0%, rgba(212, 175, 55, 0.05) 100%);
     padding: 48px;
+    position: relative;
     overflow: hidden;
 }
 
-.offer-card::before {
+.offer-card-front::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1109,6 +1137,150 @@ section {
     right: 0;
     height: 3px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.offer-card-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateY(180deg);
+    background: linear-gradient(135deg, var(--black-card) 0%, rgba(212, 175, 55, 0.04) 100%);
+    border: 1px solid var(--gold-dim);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.offer-card-back::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.offer-back-inner {
+    padding: 48px;
+    width: 100%;
+}
+
+.offer-back-title {
+    font-family: var(--font-heading);
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 32px;
+    letter-spacing: 0.5px;
+}
+
+.offer-back-title span.gold { color: var(--gold); }
+
+/* Pricing grid */
+.pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.pricing-block {
+    background: rgba(212, 175, 55, 0.04);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 10px;
+    padding: 20px 24px;
+}
+
+.pricing-block-title {
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+}
+
+.pricing-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.pricing-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.pricing-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.pricing-row-muted {
+    color: var(--text-muted);
+}
+
+.pricing-price {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--gold);
+    white-space: nowrap;
+}
+
+.pricing-row-muted .pricing-price {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+/* Discount bar */
+.pricing-discount {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(212, 175, 55, 0.07);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 8px;
+    padding: 14px 20px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+}
+
+.discount-label {
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+.discount-value {
+    font-family: var(--font-heading);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+}
+
+.discount-note {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.pricing-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.offer-flip-hint {
+    display: block;
+    text-align: right;
+    margin-top: 16px;
 }
 
 .offer-badge {
@@ -1722,8 +1894,13 @@ input:focus, select:focus, textarea:focus {
         gap: 32px;
     }
 
-    .offer-card {
+    .offer-card-front,
+    .offer-back-inner {
         padding: 32px 24px;
+    }
+
+    .pricing-grid {
+        grid-template-columns: 1fr;
     }
 
     .nav-links { display: none; }

@@ -311,13 +311,74 @@ body.retro-mode .feature-icon {
 
 /* --- Home Offer --- */
 body.retro-mode .offer-card {
-    background: #0f1a0f !important;
     border: 2px solid #ff00ff !important;
     box-shadow: 6px 6px 0 #440044 !important;
 }
 
-body.retro-mode .offer-card::before {
+body.retro-mode .offer-card-front {
+    background: #0f1a0f !important;
+}
+
+body.retro-mode .offer-card-front::before {
     background: linear-gradient(90deg, transparent, #ff00ff, transparent) !important;
+}
+
+body.retro-mode .offer-card-back {
+    background: #0a0a0a !important;
+    border: 2px solid #ff00ff !important;
+}
+
+body.retro-mode .offer-back-title {
+    color: #ff00ff !important;
+    font-size: 10px !important;
+    text-shadow: 0 0 8px #ff00ff !important;
+}
+
+body.retro-mode .pricing-block {
+    background: transparent !important;
+    border: 1px solid #003300 !important;
+}
+
+body.retro-mode .pricing-block-title {
+    font-size: 7px !important;
+    color: #00ffff !important;
+}
+
+body.retro-mode .pricing-row {
+    font-size: 6px !important;
+    color: #39ff14 !important;
+    border-bottom-color: #001a00 !important;
+}
+
+body.retro-mode .pricing-price {
+    font-size: 8px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .pricing-row-muted,
+body.retro-mode .pricing-row-muted .pricing-price {
+    color: #008800 !important;
+}
+
+body.retro-mode .pricing-discount {
+    background: transparent !important;
+    border: 1px solid #ff00ff !important;
+}
+
+body.retro-mode .discount-label {
+    font-size: 6px !important;
+    color: #39ff14 !important;
+}
+
+body.retro-mode .discount-value {
+    font-size: 12px !important;
+    color: #ff00ff !important;
+    text-shadow: 0 0 8px #ff00ff !important;
+}
+
+body.retro-mode .discount-note {
+    font-size: 6px !important;
+    color: #008800 !important;
 }
 
 body.retro-mode .offer-badge {

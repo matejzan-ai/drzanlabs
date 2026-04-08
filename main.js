@@ -88,6 +88,19 @@
             offerPriceLabel: 'On-site visit from',
             offerBtn: 'Book a visit',
             offerNote: 'Availability: Bratislava and surroundings',
+            offerFlipHint: 'click for pricing →',
+            // Offer pricing back
+            offerBackTitle: 'Service Pricing',
+            pricingOnSiteTitle: '🏠 On-site visit',
+            pricingRow1: '1st hour (incl. started)', pricingRow1Price: '60 €',
+            pricingRow2: '2nd hour', pricingRow2Price: '40 €',
+            pricingRowTransport: 'Transport', pricingRowTransportPrice: 'from 25 €',
+            pricingRemoteTitle: '💻 Remote support',
+            pricingRow3: 'First half hour', pricingRow3Price: '25 €',
+            pricingRow4: 'Full hour', pricingRow4Price: '50 €',
+            pricingDiscountLabel: '👴 Senior discount',
+            pricingDiscountValue: '−50%',
+            pricingDiscountNote: 'on everything except transport',
             // Contact
             contactTag: '// CONTACT',
             contactTitle: "Let's collaborate",
@@ -168,6 +181,19 @@
             offerPriceLabel: 'Výjazd už od',
             offerBtn: 'Objednať výjazd',
             offerNote: 'Dostupnosť: Bratislava a okolie',
+            offerFlipHint: 'kliknite pre cenník →',
+            // Offer pricing back
+            offerBackTitle: 'Cenník služieb',
+            pricingOnSiteTitle: '🏠 Výjazd k zákazníkovi',
+            pricingRow1: '1. hodina (aj začatá)', pricingRow1Price: '60 €',
+            pricingRow2: '2. hodina', pricingRow2Price: '40 €',
+            pricingRowTransport: 'Doprava', pricingRowTransportPrice: 'od 25 €',
+            pricingRemoteTitle: '💻 Vzdialená podpora',
+            pricingRow3: 'Prvá pol hodina', pricingRow3Price: '25 €',
+            pricingRow4: 'Celá hodina', pricingRow4Price: '50 €',
+            pricingDiscountLabel: '👴 Dôchodcovská zľava',
+            pricingDiscountValue: '−50%',
+            pricingDiscountNote: 'na všetko okrem dopravy',
             contactTag: '// KONTAKT',
             contactTitle: 'Poďme spolupracovať',
             contactDesc: 'Máte otázku alebo projekt? Ozvite sa nám a spoločne nájdeme riešenie.',
@@ -282,7 +308,8 @@
         // Home offer
         const offer = document.getElementById('home-offer');
         if (offer) {
-            offer.querySelector('.offer-badge').textContent = t.offerBadge;
+            // Front face
+            offer.querySelector('.offer-card-front .offer-badge').textContent = t.offerBadge;
             offer.querySelector('.section-tag').textContent = t.offerTag;
             offer.querySelector('.offer-text h2').innerHTML = t.offerTitle;
             offer.querySelector('.offer-text > p').textContent = t.offerDesc;
@@ -295,6 +322,36 @@
             offer.querySelector('.price-label').textContent = t.offerPriceLabel;
             offer.querySelector('.offer-cta .btn').textContent = t.offerBtn;
             offer.querySelector('.offer-note').textContent = t.offerNote;
+            const offerFlipHintEl = offer.querySelector('.offer-flip-hint');
+            if (offerFlipHintEl) offerFlipHintEl.textContent = t.offerFlipHint;
+            // Back face — pricing
+            const back = offer.querySelector('.offer-back-inner');
+            if (back) {
+                const backBadge = back.querySelector('.offer-badge');
+                if (backBadge) backBadge.textContent = t.offerBadge;
+                back.querySelector('.offer-back-title').textContent = t.offerBackTitle;
+                const blocks = back.querySelectorAll('.pricing-block-title');
+                if (blocks[0]) blocks[0].textContent = t.pricingOnSiteTitle;
+                if (blocks[1]) blocks[1].textContent = t.pricingRemoteTitle;
+                const rows = back.querySelectorAll('.pricing-row');
+                const rowTexts = [t.pricingRow1, t.pricingRow2, t.pricingRowTransport, t.pricingRow3, t.pricingRow4];
+                const rowPrices = [t.pricingRow1Price, t.pricingRow2Price, t.pricingRowTransportPrice, t.pricingRow3Price, t.pricingRow4Price];
+                rows.forEach((row, i) => {
+                    if (rowTexts[i]) row.childNodes[0].textContent = rowTexts[i];
+                    const priceEl = row.querySelector('.pricing-price');
+                    if (priceEl && rowPrices[i]) priceEl.textContent = rowPrices[i];
+                });
+                const disc = back.querySelector('.pricing-discount');
+                if (disc) {
+                    disc.querySelector('.discount-label').textContent = t.pricingDiscountLabel;
+                    disc.querySelector('.discount-value').textContent = t.pricingDiscountValue;
+                    disc.querySelector('.discount-note').textContent = t.pricingDiscountNote;
+                }
+                const backCta = back.querySelector('.offer-order-btn');
+                if (backCta) backCta.textContent = t.offerBtn;
+                const backHint = back.querySelector('.flip-back-hint');
+                if (backHint) backHint.textContent = t.flipBackHint;
+            }
         }
 
         // Contact
@@ -993,6 +1050,48 @@
                 if (card.classList.contains('flipped')) scheduleAutoFlipBack();
             });
         });
+
+        // ---- Offer card flip ----
+        const offerCard = document.querySelector('.offer-card');
+        if (offerCard) {
+            let offerTimer = null;
+
+            function flipOffer(toFlipped) {
+                const inner = offerCard.querySelector('.offer-card-inner');
+                if (offerCard.classList.contains('flipped') === toFlipped) return;
+                inner.classList.add('flip-anim');
+                offerCard.classList.toggle('flipped', toFlipped);
+                inner.style.transform = '';
+                setTimeout(() => inner.classList.remove('flip-anim'), 700);
+                if (retroMode) retroAudio.playClick();
+            }
+
+            function scheduleOfferFlipBack() {
+                clearTimeout(offerTimer);
+                offerTimer = setTimeout(() => {
+                    if (offerCard.classList.contains('flipped')) flipOffer(false);
+                }, 3000);
+            }
+
+            offerCard.addEventListener('click', (e) => {
+                if (e.target.closest('.offer-order-btn')) return;
+                const willBeFlipped = !offerCard.classList.contains('flipped');
+                flipOffer(willBeFlipped);
+                if (willBeFlipped) {
+                    scheduleOfferFlipBack();
+                } else {
+                    clearTimeout(offerTimer);
+                }
+            });
+
+            offerCard.addEventListener('mouseenter', () => {
+                if (offerCard.classList.contains('flipped')) clearTimeout(offerTimer);
+            });
+
+            offerCard.addEventListener('mouseleave', () => {
+                if (offerCard.classList.contains('flipped')) scheduleOfferFlipBack();
+            });
+        }
     }
 
     // ---- Mobile Menu ----
