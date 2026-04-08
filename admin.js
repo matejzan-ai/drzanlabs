@@ -11,6 +11,8 @@ const DEFAULTS = {
         heroTagline: 'Kde technológia stretáva inteligenciu',
         heroDesc: 'IT podpora novej generácie. Automatizácia poháňaná umelou inteligenciou.',
         heroBtn1: 'Naše služby', heroBtn2: 'Kontaktujte nás',
+        heroBtn1Link: '#services',
+        heroBtn2Link: '#contact',
         servicesTag: '// SLUŽBY', servicesTitle: 'Čo pre vás môžeme urobiť',
         servicesSubtitle: 'Kombinujeme expertízu v IT s pokročilou AI automatizáciou',
         svc1Title: 'IT Support & Infraštruktúra',
@@ -46,18 +48,37 @@ const DEFAULTS = {
         offerF3: 'Inštalácia softvéru a antivírusu', offerF4: 'Zálohovanie dát a obnova systému',
         offerF5: 'Poradenstvo pri kúpe nového zariadenia',
         offerNote: 'Dostupnosť: Bratislava a okolie',
+        offerPriceLabel: 'Výjazd už od',
+        offerPriceVal: '25 €',
+        offerBtn: 'Objednať výjazd',
         pricingRow1Price: '60 €', pricingRow2Price: '40 €', pricingRowTransportPrice: 'od 25 €',
         pricingRow3Price: '25 €', pricingRow4Price: '50 €', pricingDiscountValue: '−50%',
         pricingDiscountNote: 'na všetko okrem dopravy',
+        aboutTag: '// O NÁS',
+        offerTag: '// ŠPECIÁLNA PONUKA',
+        offerBadge: 'PRE DOMÁCNOSTI',
+        contactTag: '// KONTAKT',
+        contactEmail: 'Email',
+        contactLocation: 'Lokácia',
+        formName: 'Meno', formNamePh: 'Vaše meno',
+        formEmail: 'Email', formEmailPh: 'email@priklad.sk',
+        formService: 'Služba', formServiceDefault: 'Vyberte službu',
+        formMessage: 'Správa', formMessagePh: 'Popíšte váš projekt alebo otázku...',
+        formSubmit: 'Odoslať správu',
+        navCtaText: 'Kontakt',
+        scrollText: 'Scroll',
         contactTitle: 'Poďme spolupracovať',
         contactDesc: 'Máte otázku alebo projekt? Ozvite sa nám a spoločne nájdeme riešenie.',
         contactLocationVal: 'Slovensko',
+        contactEmailVal: 'info@drzanlabs.com',
         footerCopy: '&copy; 2026 DrZan Labs. Všetky práva vyhradené.',
     },
     en: {
         heroTagline: 'Where technology meets intelligence',
         heroDesc: 'Next-generation IT support. Automation powered by artificial intelligence.',
         heroBtn1: 'Our services', heroBtn2: 'Contact us',
+        heroBtn1Link: '#services',
+        heroBtn2Link: '#contact',
         servicesTag: '// SERVICES', servicesTitle: 'What we can do for you',
         servicesSubtitle: 'We combine IT expertise with advanced AI automation',
         svc1Title: 'IT Support & Infrastructure',
@@ -93,12 +114,29 @@ const DEFAULTS = {
         offerF3: 'Software and antivirus installation', offerF4: 'Data backup and system recovery',
         offerF5: 'Advice on purchasing new devices',
         offerNote: 'Availability: Bratislava and surroundings',
+        offerPriceLabel: 'On-site visit from',
+        offerPriceVal: '25 €',
+        offerBtn: 'Book a visit',
         pricingRow1Price: '60 €', pricingRow2Price: '40 €', pricingRowTransportPrice: 'from 25 €',
         pricingRow3Price: '25 €', pricingRow4Price: '50 €', pricingDiscountValue: '−50%',
         pricingDiscountNote: 'on everything except transport',
+        aboutTag: '// ABOUT US',
+        offerTag: '// SPECIAL OFFER',
+        offerBadge: 'FOR HOUSEHOLDS',
+        contactTag: '// CONTACT',
+        contactEmail: 'Email',
+        contactLocation: 'Location',
+        formName: 'Name', formNamePh: 'Your name',
+        formEmail: 'Email', formEmailPh: 'email@example.com',
+        formService: 'Service', formServiceDefault: 'Select a service',
+        formMessage: 'Message', formMessagePh: 'Describe your project or question...',
+        formSubmit: 'Send message',
+        navCtaText: 'Contact',
+        scrollText: 'Scroll',
         contactTitle: "Let's collaborate",
         contactDesc: 'Have a question or project? Get in touch and we will find a solution together.',
         contactLocationVal: 'Slovakia',
+        contactEmailVal: 'info@drzanlabs.com',
         footerCopy: '&copy; 2026 DrZan Labs. All rights reserved.',
     }
 };
@@ -112,8 +150,27 @@ const SECTIONS = [
             { key: 'heroTagline', label: 'Tagline (podnadpis)', type: 'input' },
             { key: 'heroDesc', label: 'Popis', type: 'textarea' },
             { row: [
-                { key: 'heroBtn1', label: 'Tlačidlo: Služby', type: 'input' },
-                { key: 'heroBtn2', label: 'Tlačidlo: Kontakt', type: 'input' },
+                { key: 'heroBtn1', label: 'Tlačidlo 1 – Text', type: 'input' },
+                { key: 'heroBtn1Link', label: 'Tlačidlo 1 – Link', type: 'input' },
+            ]},
+            { row: [
+                { key: 'heroBtn2', label: 'Tlačidlo 2 – Text', type: 'input' },
+                { key: 'heroBtn2Link', label: 'Tlačidlo 2 – Link', type: 'input' },
+            ]},
+            { key: 'scrollText', label: 'Scroll indikátor text', type: 'input' },
+        ]
+    },
+    {
+        id: 'nav', icon: '🧭', label: 'Navigácia',
+        desc: 'Texty v navigačnom menu.',
+        fields: [
+            { row: [
+                { key: 'navServices', label: 'Nav – Služby', type: 'input' },
+                { key: 'navAbout', label: 'Nav – O nás', type: 'input' },
+            ]},
+            { row: [
+                { key: 'navContact', label: 'Nav – Kontakt', type: 'input' },
+                { key: 'navCtaText', label: 'Nav – CTA tlačidlo', type: 'input' },
             ]},
         ]
     },
@@ -124,6 +181,7 @@ const SECTIONS = [
             {
                 title: 'Hlavička sekcie',
                 fields: [
+                    { key: 'servicesTag', label: 'Tag (// SLUŽBY)', type: 'input' },
                     { key: 'servicesTitle', label: 'Nadpis sekcie', type: 'input' },
                     { key: 'servicesSubtitle', label: 'Podnadpis', type: 'input' },
                 ]
@@ -137,7 +195,7 @@ const SECTIONS = [
                     { row: [{ key: 'svc1F3', label: 'Feature 3', type: 'input' }, { key: 'svc1F4', label: 'Feature 4', type: 'input' }] },
                     { key: 'svc1Back', label: 'Dlhší popis (zadná strana)', type: 'textarea' },
                     { row: [{ key: 'svc1BackB1', label: 'Bod 1', type: 'input' }, { key: 'svc1BackB2', label: 'Bod 2', type: 'input' }] },
-                    { key: 'svc1BackB3', label: 'Bod 3', type: 'input' },
+                    { row: [{ key: 'svc1BackB3', label: 'Bod 3', type: 'input' }, { key: 'svc1BackCta', label: 'CTA tlačidlo text', type: 'input' }] },
                 ]
             },
             {
@@ -149,7 +207,7 @@ const SECTIONS = [
                     { row: [{ key: 'svc2F3', label: 'Feature 3', type: 'input' }, { key: 'svc2F4', label: 'Feature 4', type: 'input' }] },
                     { key: 'svc2Back', label: 'Dlhší popis (zadná strana)', type: 'textarea' },
                     { row: [{ key: 'svc2BackB1', label: 'Bod 1', type: 'input' }, { key: 'svc2BackB2', label: 'Bod 2', type: 'input' }] },
-                    { key: 'svc2BackB3', label: 'Bod 3', type: 'input' },
+                    { row: [{ key: 'svc2BackB3', label: 'Bod 3', type: 'input' }, { key: 'svc2BackCta', label: 'CTA tlačidlo text', type: 'input' }] },
                 ]
             },
             {
@@ -161,7 +219,7 @@ const SECTIONS = [
                     { row: [{ key: 'svc3F3', label: 'Feature 3', type: 'input' }, { key: 'svc3F4', label: 'Feature 4', type: 'input' }] },
                     { key: 'svc3Back', label: 'Dlhší popis (zadná strana)', type: 'textarea' },
                     { row: [{ key: 'svc3BackB1', label: 'Bod 1', type: 'input' }, { key: 'svc3BackB2', label: 'Bod 2', type: 'input' }] },
-                    { key: 'svc3BackB3', label: 'Bod 3', type: 'input' },
+                    { row: [{ key: 'svc3BackB3', label: 'Bod 3', type: 'input' }, { key: 'svc3BackCta', label: 'CTA tlačidlo text', type: 'input' }] },
                 ]
             },
             {
@@ -173,7 +231,7 @@ const SECTIONS = [
                     { row: [{ key: 'svc4F3', label: 'Feature 3', type: 'input' }, { key: 'svc4F4', label: 'Feature 4', type: 'input' }] },
                     { key: 'svc4Back', label: 'Dlhší popis (zadná strana)', type: 'textarea' },
                     { row: [{ key: 'svc4BackB1', label: 'Bod 1', type: 'input' }, { key: 'svc4BackB2', label: 'Bod 2', type: 'input' }] },
-                    { key: 'svc4BackB3', label: 'Bod 3', type: 'input' },
+                    { row: [{ key: 'svc4BackB3', label: 'Bod 3', type: 'input' }, { key: 'svc4BackCta', label: 'CTA tlačidlo text', type: 'input' }] },
                 ]
             },
         ]
@@ -182,6 +240,7 @@ const SECTIONS = [
         id: 'about', icon: '🏢', label: 'O nás',
         desc: 'Sekcia o firme, hodnoty a štatistiky.',
         fields: [
+            { key: 'aboutTag', label: 'Tag (// O NÁS)', type: 'input' },
             { key: 'aboutTitle', label: 'Nadpis', type: 'input', html: true },
             { key: 'aboutP1', label: 'Odsek 1', type: 'textarea' },
             { key: 'aboutP2', label: 'Odsek 2', type: 'textarea' },
@@ -199,6 +258,8 @@ const SECTIONS = [
             {
                 title: 'Predná strana – obsah',
                 fields: [
+                    { key: 'offerTag', label: 'Tag (// ŠPECIÁLNA PONUKA)', type: 'input' },
+                    { key: 'offerBadge', label: 'Badge (PRE DOMÁCNOSTI)', type: 'input' },
                     { key: 'offerTitle', label: 'Nadpis', type: 'input', html: true },
                     { key: 'offerDesc', label: 'Popis', type: 'textarea' },
                     { key: 'offerF1', label: 'Feature 1', type: 'input' },
@@ -206,7 +267,8 @@ const SECTIONS = [
                     { key: 'offerF3', label: 'Feature 3', type: 'input' },
                     { key: 'offerF4', label: 'Feature 4', type: 'input' },
                     { key: 'offerF5', label: 'Feature 5', type: 'input' },
-                    { key: 'offerNote', label: 'Poznámka (dostupnosť)', type: 'input' },
+                    { row: [{ key: 'offerPriceLabel', label: 'Cenový label ("Výjazd už od")', type: 'input' }, { key: 'offerPriceVal', label: 'Cena na prednej strane', type: 'input' }] },
+                    { row: [{ key: 'offerBtn', label: 'Tlačidlo text', type: 'input' }, { key: 'offerNote', label: 'Poznámka (dostupnosť)', type: 'input' }] },
                 ]
             },
             {
@@ -237,13 +299,35 @@ const SECTIONS = [
         ]
     },
     {
-        id: 'contact', icon: '✉️', label: 'Kontakt',
-        desc: 'Texty v kontaktnej sekcii.',
-        fields: [
-            { key: 'contactTitle', label: 'Nadpis', type: 'input' },
-            { key: 'contactDesc', label: 'Popis', type: 'textarea' },
-            { key: 'contactLocationVal', label: 'Lokácia', type: 'input' },
-            { key: 'footerCopy', label: 'Footer copyright', type: 'input', html: true },
+        id: 'contact', icon: '✉️', label: 'Kontakt & Formulár',
+        desc: 'Texty v kontaktnej sekcii a formulár.',
+        subsections: [
+            {
+                title: 'Kontaktná sekcia',
+                fields: [
+                    { key: 'contactTag', label: 'Tag (// KONTAKT)', type: 'input' },
+                    { key: 'contactTitle', label: 'Nadpis', type: 'input' },
+                    { key: 'contactDesc', label: 'Popis', type: 'textarea' },
+                    { row: [{ key: 'contactEmail', label: 'Emailový label', type: 'input' }, { key: 'contactEmailVal', label: 'Email adresa (aj link)', type: 'input' }] },
+                    { row: [{ key: 'contactLocation', label: 'Lokácia label', type: 'input' }, { key: 'contactLocationVal', label: 'Lokácia hodnota', type: 'input' }] },
+                ]
+            },
+            {
+                title: 'Kontaktný formulár',
+                fields: [
+                    { row: [{ key: 'formName', label: 'Pole Meno – label', type: 'input' }, { key: 'formNamePh', label: 'Pole Meno – placeholder', type: 'input' }] },
+                    { row: [{ key: 'formEmail', label: 'Pole Email – label', type: 'input' }, { key: 'formEmailPh', label: 'Pole Email – placeholder', type: 'input' }] },
+                    { row: [{ key: 'formService', label: 'Pole Služba – label', type: 'input' }, { key: 'formServiceDefault', label: 'Pole Služba – default', type: 'input' }] },
+                    { row: [{ key: 'formMessage', label: 'Pole Správa – label', type: 'input' }, { key: 'formMessagePh', label: 'Pole Správa – placeholder', type: 'input' }] },
+                    { key: 'formSubmit', label: 'Odoslať – text tlačidla', type: 'input' },
+                ]
+            },
+            {
+                title: 'Footer',
+                fields: [
+                    { key: 'footerCopy', label: 'Copyright text', type: 'input', html: true },
+                ]
+            },
         ]
     },
 ];

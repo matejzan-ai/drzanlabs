@@ -34,6 +34,8 @@
             heroDesc: 'Next-generation IT support. Automation powered by artificial intelligence.',
             heroBtn1: 'Our services',
             heroBtn2: 'Contact us',
+            heroBtn1Link: '#services',
+            heroBtn2Link: '#contact',
             // Services
             servicesTag: '// SERVICES',
             servicesTitle: 'What we can do for you',
@@ -86,6 +88,7 @@
             offerF4: 'Data backup and system recovery',
             offerF5: 'Advice on purchasing new devices',
             offerPriceLabel: 'On-site visit from',
+            offerPriceVal: '25 €',
             offerBtn: 'Book a visit',
             offerNote: 'Availability: Bratislava and surroundings',
             offerFlipHint: 'click for pricing →',
@@ -108,6 +111,7 @@
             contactEmail: 'Email',
             contactLocation: 'Location',
             contactLocationVal: 'Slovakia',
+            contactEmailVal: 'info@drzanlabs.com',
             formName: 'Name', formNamePh: 'Your name',
             formEmail: 'Email', formEmailPh: 'email@example.com',
             formService: 'Service', formServiceDefault: 'Select a service',
@@ -130,6 +134,8 @@
             heroDesc: 'IT podpora novej generácie. Automatizácia poháňaná umelou inteligenciou.',
             heroBtn1: 'Naše služby',
             heroBtn2: 'Kontaktujte nás',
+            heroBtn1Link: '#services',
+            heroBtn2Link: '#contact',
             servicesTag: '// SLUŽBY',
             servicesTitle: 'Čo pre vás môžeme urobiť',
             servicesSubtitle: 'Kombinujeme expertízu v IT s pokročilou AI automatizáciou',
@@ -179,6 +185,7 @@
             offerF4: 'Zálohovanie dát a obnova systému',
             offerF5: 'Poradenstvo pri kúpe nového zariadenia',
             offerPriceLabel: 'Výjazd už od',
+            offerPriceVal: '25 €',
             offerBtn: 'Objednať výjazd',
             offerNote: 'Dostupnosť: Bratislava a okolie',
             offerFlipHint: 'kliknite pre cenník →',
@@ -200,6 +207,7 @@
             contactEmail: 'Email',
             contactLocation: 'Lokácia',
             contactLocationVal: 'Slovensko',
+            contactEmailVal: 'info@drzanlabs.com',
             formName: 'Meno', formNamePh: 'Vaše meno',
             formEmail: 'Email', formEmailPh: 'email@priklad.sk',
             formService: 'Služba', formServiceDefault: 'Vyberte službu',
@@ -251,8 +259,8 @@
         txt('.hero-tagline', t.heroTagline);
         txt('.hero-desc', t.heroDesc);
         const heroBtns = document.querySelectorAll('.hero-buttons .btn');
-        if (heroBtns[0]) heroBtns[0].textContent = t.heroBtn1;
-        if (heroBtns[1]) heroBtns[1].textContent = t.heroBtn2;
+        if (heroBtns[0]) { heroBtns[0].textContent = t.heroBtn1; if (t.heroBtn1Link) heroBtns[0].href = t.heroBtn1Link; }
+        if (heroBtns[1]) { heroBtns[1].textContent = t.heroBtn2; if (t.heroBtn2Link) heroBtns[1].href = t.heroBtn2Link; }
 
         // Services section
         const svcHeader = document.querySelector('#services .section-header');
@@ -333,6 +341,8 @@
             if (offerLis[3]) offerLis[3].textContent = t.offerF4;
             if (offerLis[4]) offerLis[4].textContent = t.offerF5;
             offer.querySelector('.price-label').textContent = t.offerPriceLabel;
+            const priceValEl = offer.querySelector('.price-value');
+            if (priceValEl && t.offerPriceVal) priceValEl.textContent = t.offerPriceVal;
             offer.querySelector('.offer-cta .btn').textContent = t.offerBtn;
             offer.querySelector('.offer-note').textContent = t.offerNote;
             const offerFlipHintEl = offer.querySelector('.offer-flip-hint');
@@ -378,6 +388,8 @@
             if (labels[1]) labels[1].textContent = t.contactLocation;
             const locSpan = contact.querySelectorAll('.contact-item')[1];
             if (locSpan) { const s = locSpan.querySelectorAll('span'); if (s[1]) s[1].textContent = t.contactLocationVal; }
+            const emailLink = contact.querySelector('a[href^="mailto"]');
+            if (emailLink && t.contactEmailVal) { emailLink.href = 'mailto:' + t.contactEmailVal; emailLink.textContent = t.contactEmailVal; }
 
             // Form
             const nameInput = document.getElementById('name');
