@@ -1228,14 +1228,21 @@
 
         init() {
             if (this.ctx) return;
-            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-            this.masterGain = this.ctx.createGain();
-            this.masterGain.gain.value = 0.15;
-            this.masterGain.connect(this.ctx.destination);
+            try {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.masterGain = this.ctx.createGain();
+                this.masterGain.gain.value = 0.15;
+                this.masterGain.connect(this.ctx.destination);
+                // iOS Safari starts AudioContext suspended — must resume in user gesture
+                if (this.ctx.state === 'suspended') this.ctx.resume();
+            } catch(e) {
+                this.ctx = null; // audio unavailable, visual mode still works
+            }
         },
 
         playBeep(freq, duration, type) {
             if (this.muted || !this.ctx) return;
+            if (this.ctx.state === 'suspended') this.ctx.resume();
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = type || 'square';
