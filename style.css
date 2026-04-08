@@ -1930,8 +1930,11 @@ input:focus, select:focus, textarea:focus {
     .nav-links { display: none; }
     .mobile-menu { display: flex; }
 
-    /* Hide retro toggle — cramped on mobile, not suited for touch */
+    /* Hide retro toggle and lang switch from navbar — both accessible in mobile menu */
     .retro-toggle { display: none; }
+    .lang-switch { display: none; }
+    /* nav-toggles is now empty on mobile — collapse it */
+    .nav-toggles { display: none; }
 }
 
 /* Touch devices: flip hints always visible (no hover state) */
@@ -1969,6 +1972,17 @@ input:focus, select:focus, textarea:focus {
 
     .footer-content {
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px 20px;
+    }
+
+    .footer-copy {
         text-align: center;
     }
 
@@ -2088,6 +2102,15 @@ input:focus, select:focus, textarea:focus {
     color: var(--text-muted);
     line-height: 1.5;
     cursor: pointer;
+    /* Override .form-group label floating-label styles */
+    position: static;
+    text-transform: none;
+    letter-spacing: normal;
+    background: none;
+    padding: 0;
+    opacity: 1;
+    top: auto;
+    left: auto;
 }
 
 .form-checkbox label a {
