@@ -2,8 +2,11 @@
    DrZan Labs — Admin Panel Logic
    ============================================= */
 
-const HASH_KEY  = 'drzan_admin_hash';
+const HASH_KEY    = 'drzan_admin_hash';
+const USER_KEY    = 'drzan_admin_user';
 const CONTENT_KEY = 'drzan_content';
+const DEFAULT_USER = 'domin';
+const DEFAULT_PASS = 'domin';
 
 // ---- DEFAULT CONTENT (mirrors T object in main.js) ----
 const DEFAULTS = {
@@ -355,40 +358,34 @@ async function sha256(str) {
 // ---- AUTH ----
 async function init() {
     loadSaved();
-    const hash = localStorage.getItem(HASH_KEY);
-    if (!hash) {
-        document.getElementById('setup-view').style.display = 'block';
-        document.getElementById('login-view').style.display = 'none';
-    } else {
-        document.getElementById('setup-view').style.display = 'none';
-        document.getElementById('login-view').style.display = 'block';
+
+    // Auto-initialize default credentials (domin/domin) if not set
+    if (!localStorage.getItem(HASH_KEY) || !localStorage.getItem(USER_KEY)) {
+        localStorage.setItem(USER_KEY, DEFAULT_USER);
+        localStorage.setItem(HASH_KEY, await sha256(DEFAULT_PASS));
     }
 
-    // Setup
-    document.getElementById('setup-btn').addEventListener('click', async () => {
-        const pw  = document.getElementById('setup-pw').value;
-        const pw2 = document.getElementById('setup-pw2').value;
-        const err = document.getElementById('setup-error');
-        if (pw.length < 6) { err.textContent = 'Heslo musí mať aspoň 6 znakov.'; return; }
-        if (pw !== pw2)    { err.textContent = 'Heslá sa nezhodujú.'; return; }
-        localStorage.setItem(HASH_KEY, await sha256(pw));
-        showAdmin();
-    });
-    document.getElementById('setup-pw2').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('setup-btn').click(); });
+    // Always show login form (setup screen no longer needed)
+    document.getElementById('setup-view').style.display = 'none';
+    document.getElementById('login-view').style.display = 'block';
 
-    // Login
-    document.getElementById('login-btn').addEventListener('click', async () => {
-        const pw  = document.getElementById('login-pw').value;
-        const err = document.getElementById('login-error');
-        const stored = localStorage.getItem(HASH_KEY);
-        if ((await sha256(pw)) === stored) {
+    async function tryLogin() {
+        const user = document.getElementById('login-user').value.trim();
+        const pw   = document.getElementById('login-pw').value;
+        const err  = document.getElementById('login-error');
+        const storedUser = localStorage.getItem(USER_KEY);
+        const storedHash = localStorage.getItem(HASH_KEY);
+        if (user === storedUser && (await sha256(pw)) === storedHash) {
             showAdmin();
         } else {
-            err.textContent = 'Nesprávne heslo.';
+            err.textContent = 'Nesprávne meno alebo heslo.';
             document.getElementById('login-pw').value = '';
         }
-    });
-    document.getElementById('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-btn').click(); });
+    }
+
+    document.getElementById('login-btn').addEventListener('click', tryLogin);
+    document.getElementById('login-pw').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+    document.getElementById('login-user').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('login-pw').focus(); });
 }
 
 function showAdmin() {
