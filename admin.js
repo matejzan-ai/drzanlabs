@@ -562,15 +562,68 @@ function saveCurrentSection() {
     });
 }
 
-function saveAll() {
+// Keys that should never be translated (links, prices, emails, symbols)
+const NO_TRANSLATE = new Set([
+    'heroBtn1Link', 'heroBtn2Link', 'contactEmailVal',
+    'pricingRow1Price', 'pricingRow2Price', 'pricingRowTransportPrice',
+    'pricingRow3Price', 'pricingRow4Price', 'pricingDiscountValue', 'offerPriceVal'
+]);
+
+async function translateText(text, from, to) {
+    if (!text || !text.trim()) return text;
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        // Reassemble translated chunks (Google splits long text)
+        return data[0].map(chunk => chunk[0]).join('');
+    } catch (e) {
+        console.warn('Translation failed for key, using original:', e);
+        return text;
+    }
+}
+
+async function saveAll() {
     saveCurrentSection();
-    // Mirror all SK overrides to EN so both languages stay in sync
-    savedContent.en = Object.assign({}, savedContent.sk);
-    localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+
     const status = document.getElementById('save-status');
-    status.textContent = '✓ Uložené (SK + EN)';
+    const btn = document.getElementById('save-all-btn');
+
+    const skOverrides = savedContent.sk || {};
+    const keys = Object.keys(skOverrides);
+
+    if (keys.length === 0) {
+        // Nothing changed — just persist
+        localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+        status.textContent = '✓ Uložené';
+        status.classList.add('visible');
+        setTimeout(() => status.classList.remove('visible'), 2500);
+        return;
+    }
+
+    // Translate all SK overrides to EN
+    btn.disabled = true;
+    status.textContent = `⏳ Prekladám (0 / ${keys.length})...`;
     status.classList.add('visible');
-    setTimeout(() => status.classList.remove('visible'), 2500);
+
+    const enOverrides = {};
+    for (let i = 0; i < keys.length; i++) {
+        const key = keys[i];
+        const val = skOverrides[key];
+        status.textContent = `⏳ Prekladám (${i + 1} / ${keys.length})...`;
+        if (NO_TRANSLATE.has(key) || typeof val !== 'string') {
+            enOverrides[key] = val;
+        } else {
+            enOverrides[key] = await translateText(val, 'sk', 'en');
+        }
+    }
+
+    savedContent.en = enOverrides;
+    localStorage.setItem(CONTENT_KEY, JSON.stringify(savedContent));
+
+    btn.disabled = false;
+    status.textContent = '✓ Uložené + EN preložené';
+    setTimeout(() => status.classList.remove('visible'), 3000);
     if (_currentSectionId) showSection(_currentSectionId);
 }
 
