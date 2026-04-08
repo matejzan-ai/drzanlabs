@@ -1010,88 +1010,57 @@
 
     // ---- Service Card Flip ----
     function initCardFlip() {
-        document.querySelectorAll('.service-card').forEach(card => {
-            let autoFlipTimer = null;
+        // Generic flip setup — works for both service cards and offer card
+        function setupFlip(el, innerSel, skipSel) {
+            let timer = null;
+            let hovered = false;
 
-            function flipCard(toFlipped) {
-                const inner = card.querySelector('.card-inner');
-                if (card.classList.contains('flipped') === toFlipped) return;
+            function doFlip(toFlipped) {
+                const inner = el.querySelector(innerSel);
+                if (el.classList.contains('flipped') === toFlipped) return;
                 inner.classList.add('flip-anim');
-                card.classList.toggle('flipped', toFlipped);
+                el.classList.toggle('flipped', toFlipped);
                 inner.style.transform = '';
                 setTimeout(() => inner.classList.remove('flip-anim'), 700);
                 if (retroMode) retroAudio.playClick();
             }
 
-            function scheduleAutoFlipBack() {
-                clearTimeout(autoFlipTimer);
-                autoFlipTimer = setTimeout(() => {
-                    if (card.classList.contains('flipped')) flipCard(false);
+            function scheduleBack() {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    if (el.classList.contains('flipped')) doFlip(false);
                 }, 3000);
             }
 
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.back-cta')) return;
-                const willBeFlipped = !card.classList.contains('flipped');
-                flipCard(willBeFlipped);
-                if (willBeFlipped) {
-                    scheduleAutoFlipBack();
+            el.addEventListener('mouseenter', () => {
+                hovered = true;
+                clearTimeout(timer);
+            });
+
+            el.addEventListener('mouseleave', () => {
+                hovered = false;
+                if (el.classList.contains('flipped')) scheduleBack();
+            });
+
+            el.addEventListener('click', (e) => {
+                if (skipSel && e.target.closest(skipSel)) return;
+                const willFlip = !el.classList.contains('flipped');
+                doFlip(willFlip);
+                if (willFlip && !hovered) {
+                    // Touch device — no hover, start timer immediately
+                    scheduleBack();
                 } else {
-                    clearTimeout(autoFlipTimer);
+                    clearTimeout(timer);
                 }
-            });
-
-            // Mouse enter cancels auto-flip timer; mouse leave restarts it
-            card.addEventListener('mouseenter', () => {
-                if (card.classList.contains('flipped')) clearTimeout(autoFlipTimer);
-            });
-
-            card.addEventListener('mouseleave', () => {
-                if (card.classList.contains('flipped')) scheduleAutoFlipBack();
-            });
-        });
-
-        // ---- Offer card flip ----
-        const offerCard = document.querySelector('.offer-card');
-        if (offerCard) {
-            let offerTimer = null;
-
-            function flipOffer(toFlipped) {
-                const inner = offerCard.querySelector('.offer-card-inner');
-                if (offerCard.classList.contains('flipped') === toFlipped) return;
-                inner.classList.add('flip-anim');
-                offerCard.classList.toggle('flipped', toFlipped);
-                inner.style.transform = '';
-                setTimeout(() => inner.classList.remove('flip-anim'), 700);
-                if (retroMode) retroAudio.playClick();
-            }
-
-            function scheduleOfferFlipBack() {
-                clearTimeout(offerTimer);
-                offerTimer = setTimeout(() => {
-                    if (offerCard.classList.contains('flipped')) flipOffer(false);
-                }, 3000);
-            }
-
-            offerCard.addEventListener('click', (e) => {
-                if (e.target.closest('.offer-order-btn')) return;
-                const willBeFlipped = !offerCard.classList.contains('flipped');
-                flipOffer(willBeFlipped);
-                if (willBeFlipped) {
-                    scheduleOfferFlipBack();
-                } else {
-                    clearTimeout(offerTimer);
-                }
-            });
-
-            offerCard.addEventListener('mouseenter', () => {
-                if (offerCard.classList.contains('flipped')) clearTimeout(offerTimer);
-            });
-
-            offerCard.addEventListener('mouseleave', () => {
-                if (offerCard.classList.contains('flipped')) scheduleOfferFlipBack();
             });
         }
+
+        document.querySelectorAll('.service-card').forEach(card => {
+            setupFlip(card, '.card-inner', '.back-cta');
+        });
+
+        const offerCard = document.querySelector('.offer-card');
+        if (offerCard) setupFlip(offerCard, '.offer-card-inner', '.offer-order-btn');
     }
 
     // ---- Mobile Menu ----
