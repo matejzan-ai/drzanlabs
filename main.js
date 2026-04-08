@@ -1010,6 +1010,9 @@
 
     // ---- 3D Tilt Cards ----
     function initTiltCards() {
+        // No tilt on touch devices — pointless and interferes with flip
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
         document.querySelectorAll('[data-tilt]').forEach(card => {
             const inner = card.querySelector('.card-inner') || card;
             let rafId = null;
@@ -1020,6 +1023,15 @@
             function lerp(a, b, t) { return a + (b - a) * t; }
 
             function animate() {
+                // Card was flipped — hand transform back to CSS, stop loop
+                if (card.classList.contains('flipped')) {
+                    inner.style.transform = '';
+                    rafId = null;
+                    hovering = false;
+                    targetRX = 0; targetRY = 0;
+                    currentRX = 0; currentRY = 0;
+                    return;
+                }
                 currentRX = lerp(currentRX, targetRX, 0.12);
                 currentRY = lerp(currentRY, targetRY, 0.12);
                 const ty = hovering ? lerp(0, -8, Math.abs(currentRX + currentRY) / 10) : lerp(currentRX, 0, 0.12);
@@ -1143,6 +1155,15 @@
                 document.body.style.overflow = '';
             });
         });
+
+        // Close mobile nav when lang switch is tapped
+        nav.querySelectorAll('.lang-sw-btn').forEach(langBtn => {
+            langBtn.addEventListener('click', () => {
+                btn.classList.remove('active');
+                nav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
     }
 
     // ---- Contact Form ----
@@ -1180,22 +1201,19 @@
 
     // ---- Language Switch (navbar SK/EN) ----
     function initLangToggle() {
-        const sw = document.getElementById('lang-switch');
-        if (!sw) return;
-        sw.querySelectorAll('.lang-sw-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const lang = btn.dataset.lang;
-                if (lang === siteLang) return;
-                applyLanguage(lang);
-                updateLangSwitch(lang);
-            });
+        // Document-level delegation — handles both navbar and mobile nav lang buttons
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.lang-sw-btn');
+            if (!btn) return;
+            const lang = btn.dataset.lang;
+            if (lang === siteLang) return;
+            applyLanguage(lang);
+            updateLangSwitch(lang);
         });
     }
 
     function updateLangSwitch(lang) {
-        const sw = document.getElementById('lang-switch');
-        if (!sw) return;
-        sw.querySelectorAll('.lang-sw-btn').forEach(b => {
+        document.querySelectorAll('.lang-sw-btn').forEach(b => {
             b.classList.toggle('active', b.dataset.lang === lang);
         });
     }

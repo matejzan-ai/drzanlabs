@@ -501,6 +501,20 @@ a:hover { color: var(--gold-light); }
     letter-spacing: 2px;
 }
 
+.mobile-nav-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    font-family: var(--font-heading);
+    font-size: 18px;
+    letter-spacing: 3px;
+    border-top: 1px solid rgba(212, 175, 55, 0.1);
+    padding-top: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
 /* --- Hero Section --- */
 #hero {
     min-height: 100vh;
@@ -733,8 +747,9 @@ section {
 .card-inner {
     position: relative;
     width: 100%;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    border-radius: 12px;
+    /* border-radius intentionally omitted — breaks iOS preserve-3d */
     transition: transform 0.1s ease-out;
     will-change: transform;
 }
@@ -1111,8 +1126,9 @@ section {
 /* ---- Offer card flip ---- */
 .offer-card-inner {
     position: relative;
+    -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;
-    border-radius: 16px;
+    /* border-radius intentionally omitted — breaks iOS preserve-3d */
 }
 
 .offer-card-inner.flip-anim {
@@ -1913,6 +1929,28 @@ input:focus, select:focus, textarea:focus {
 
     .nav-links { display: none; }
     .mobile-menu { display: flex; }
+
+    /* Hide retro toggle — cramped on mobile, not suited for touch */
+    .retro-toggle { display: none; }
+}
+
+/* Touch devices: flip hints always visible (no hover state) */
+@media (hover: none) and (pointer: coarse) {
+    .flip-hint {
+        opacity: 0.85;
+        color: var(--gold-light);
+    }
+    .flip-back-hint {
+        opacity: 0.85;
+    }
+    /* Disable tilt hover glow effects that rely on :hover */
+    .service-card:not(.flipped):hover {
+        border-color: rgba(212, 175, 55, 0.08);
+        box-shadow: none;
+    }
+    .service-card:not(.flipped):hover .card-front::before {
+        opacity: 0;
+    }
 }
 
 @media (max-width: 600px) {
@@ -1935,6 +1973,34 @@ input:focus, select:focus, textarea:focus {
     }
 
     #skip-intro { bottom: 20px; right: 20px; }
+
+    /* Section padding reduction */
+    #services { padding: 80px 0; }
+    #about    { padding: 80px 0; }
+    #home-offer { padding: 72px 0; }
+    #contact  { padding: 80px 0; }
+    #tech     { padding: 56px 0; }
+    .section-header { margin-bottom: 40px; }
+
+    /* Card padding */
+    .card-front { padding: 28px 20px; }
+    .card-back-inner { padding: 24px 20px; }
+    .offer-card-front,
+    .offer-back-inner { padding: 28px 20px; }
+
+    /* Services grid full width on small screens */
+    .services-grid { max-width: 100%; }
+
+    /* Contact form */
+    .contact-grid { gap: 32px; }
+
+    /* Offer features text */
+    .offer-features li { font-size: 14px; }
+    .price-value { font-size: 38px; }
+
+    /* Nav toggles compact */
+    .nav-toggles { gap: 8px; }
+    .lang-switch { margin-left: 4px; }
 }
 
 /* ========================================
